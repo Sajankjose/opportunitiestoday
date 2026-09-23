@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Geojit Opportunity Workspace — MVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#132238;
+    --muted:#677489;
+    --line:#e6ebf1;
+    --surface:#ffffff;
+    --bg:#f4f7fa;
+    --brand:#0f7a63;
+    --brand-2:#165d4d;
+    --brand-soft:#e9f5f1;
+    --accent:#ffb547;
+    --accent-soft:#fff6e6;
+    --danger:#d94c4c;
+    --danger-soft:#fff0f0;
+    --blue:#3379d6;
+    --blue-soft:#edf4fe;
+    --purple:#7257c7;
+    --purple-soft:#f1edff;
+    --shadow:0 12px 30px rgba(20,33,52,.08);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Radio Canada",system-ui,sans-serif}
+  button,input{font:inherit}
+  button{cursor:pointer}
+  .app{min-height:100vh;display:grid;grid-template-columns:252px minmax(0,1fr)}
+  .sidebar{position:sticky;top:0;height:100vh;background:#0f2d28;color:#dce8e5;padding:24px 18px;display:flex;flex-direction:column;gap:18px}
+  .brand{display:flex;align-items:center;gap:12px;padding:4px 8px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .brand-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#28aa87,#0c664f);display:grid;place-items:center;font-weight:800;color:white}
+  .brand h1{font-size:16px;margin:0;color:white;line-height:1.2}
+  .brand small{font-size:11px;opacity:.68}
+  .nav{display:grid;gap:6px}
+  .nav button{border:0;background:transparent;color:#c9dbd6;text-align:left;padding:12px 14px;border-radius:12px;display:flex;gap:10px;align-items:center}
+  .nav button.active,.nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+  .nav .count{margin-left:auto;background:#1f6e5c;color:white;border-radius:20px;padding:2px 7px;font-size:11px}
+  .side-card{margin-top:auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px}
+  .side-card strong{display:block;color:white;margin-bottom:4px}
+  .side-card p{margin:0;color:#bcd0ca;font-size:12px;line-height:1.5}
+  .main{min-width:0}
+  .topbar{height:72px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:20}
+  .page-title{font-weight:700;font-size:18px}
+  .top-actions{display:flex;align-items:center;gap:10px}
+  .role-switch{display:flex;background:#eef2f5;border-radius:12px;padding:4px}
+  .role-switch button{border:0;background:transparent;padding:8px 11px;border-radius:9px;color:var(--muted);font-size:13px}
+  .role-switch button.active{background:white;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.06);font-weight:600}
+  .avatar{width:36px;height:36px;border-radius:50%;background:#dcebe7;display:grid;place-items:center;color:#0e6654;font-weight:700}
+  .content{padding:28px 32px 70px;max-width:1250px;margin:auto}
+  .view{display:none}.view.active{display:block}
+  .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--brand);font-weight:700}
+  h2{font-size:30px;line-height:1.15;margin:7px 0 8px;letter-spacing:-.02em}
+  .lead{color:var(--muted);margin:0 0 24px;font-size:15px}
+  .hero{background:linear-gradient(135deg,#12372f,#0e5c4b);color:white;border-radius:28px;padding:26px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+  .hero:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.07);right:-90px;top:-140px}
+  .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:24px;align-items:end;position:relative;z-index:1}
+  .hero h2{font-size:34px;margin:6px 0 8px}
+  .hero p{color:#dcebe7;max-width:670px;margin:0 0 22px}
+  .hero .big-num{font-size:52px;line-height:1;font-weight:700}
+  .hero .big-label{font-size:13px;color:#cde1dc}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+  .hero-stat{background:rgba(255,255,255,.09);padding:14px;border:1px solid rgba(255,255,255,.09);border-radius:15px}
+  .hero-stat strong{font-size:20px;display:block}
+  .hero-stat span{font-size:11px;color:#c9ddd8}
+  .primary{border:0;background:white;color:#0f5d4c;font-weight:700;padding:12px 16px;border-radius:12px}
+  .primary.brand{background:var(--brand);color:white}
+  .secondary{border:1px solid var(--line);background:white;color:var(--ink);padding:11px 14px;border-radius:12px;font-weight:600}
+  .link-btn{border:0;background:transparent;color:var(--brand);padding:8px 0;font-weight:700}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:26px 0 12px;gap:14px}
+  .section-head h3{font-size:18px;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+  .grid{display:grid;grid-template-columns:1.5fr .85fr;gap:18px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 20px rgba(20,33,52,.035)}
+  .card.pad{padding:20px}
+  .opportunity{padding:20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;transition:.2s ease}
+  .opportunity:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .op-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .client-name{font-size:20px;font-weight:700}
+  .pill{display:inline-flex;align-items:center;gap:5px;border-radius:100px;padding:5px 9px;font-size:11px;font-weight:700;background:#f1f4f7;color:#526173}
+  .pill.hot{background:var(--accent-soft);color:#94601a}.pill.mf{background:var(--brand-soft);color:var(--brand-2)}.pill.eq{background:var(--blue-soft);color:#2a67af}.pill.ins{background:var(--purple-soft);color:#5b46a5}
+  .signal{font-size:15px;margin:2px 0 6px;font-weight:600}.reason{font-size:13px;color:var(--muted);line-height:1.45}
+  .value{font-weight:700;color:var(--ink)}
+  .card-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .icon-btn{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 11px;color:var(--ink);font-size:12px;font-weight:600}
+  .icon-btn:hover{border-color:#b8c6d3;background:#fafbfc}
+  .score-box{min-width:88px;text-align:center;background:#f7f9fb;border-radius:14px;padding:12px 10px}
+  .score-box strong{font-size:24px;display:block}.score-box span{font-size:10px;color:var(--muted)}
+  .list{display:grid;gap:12px}
+  .mini-stat{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}.mini-stat:last-child{border-bottom:0}
+  .mini-stat span{color:var(--muted);font-size:13px}.mini-stat strong{font-size:15px}
+  .progress{height:8px;background:#ecf0f3;border-radius:10px;overflow:hidden}.progress>span{display:block;height:100%;background:var(--brand);border-radius:10px}
+  .mission-card{background:#fff9ef;border:1px solid #f5dfb4}
+  .mission-card h4{margin:4px 0 6px}.mission-card p{margin:0;color:#6f6250;font-size:13px;line-height:1.5}
+  .mission-row{display:flex;align-items:center;gap:12px;margin-top:14px}
+  .ring{width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--accent) 72%,#f2e7d1 0);position:relative;display:grid;place-items:center;font-weight:700}
+  .ring:after{content:"";position:absolute;width:38px;height:38px;background:#fff9ef;border-radius:50%}.ring span{position:relative;z-index:1;font-size:11px}
+  .signal-box{background:#f7faf9;border:1px solid #dceae6;border-radius:16px;padding:16px;margin-top:12px}
+  .signal-box .label{font-size:11px;color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.08em}.signal-box strong{display:block;margin:6px 0}.signal-box p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+  .filters{display:flex;gap:8px;overflow:auto;padding-bottom:6px}.filter{border:1px solid var(--line);background:white;border-radius:100px;padding:8px 12px;white-space:nowrap;font-size:12px;color:var(--muted)}.filter.active{background:#163c33;color:white;border-color:#163c33}
+  .opp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .opp-tile{padding:18px;cursor:pointer;transition:.2s}.opp-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .opp-tile .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.opp-tile h4{margin:0 0 5px;font-size:17px}.opp-tile p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+  .opp-tile .bottom{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12px}
+  .detail-layout{display:grid;grid-template-columns:1.3fr .7fr;gap:18px}
+  .back{border:0;background:transparent;color:var(--muted);font-weight:600;padding:0 0 16px}
+  .client-hero{padding:24px}.client-hero .top{display:flex;justify-content:space-between;gap:16px}.client-hero h2{font-size:28px;margin:3px 0}.client-hero p{margin:0;color:var(--muted)}
+  .journey{display:flex;align-items:center;gap:0;margin-top:24px}.journey-step{flex:1;position:relative;text-align:center;font-size:11px;color:var(--muted)}.journey-step:before{content:"";display:block;height:4px;background:#dfe6eb;margin-bottom:9px}.journey-step.done:before{background:var(--brand)}.journey-step.active:before{background:linear-gradient(90deg,var(--brand) 55%,#dfe6eb 55%)}.journey-step strong{display:block;color:var(--ink);font-size:12px}
+  .reason-list{display:grid;gap:10px;margin-top:14px}.reason-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:12px;background:#f7f9fb}.reason-icon{width:30px;height:30px;border-radius:9px;background:var(--brand-soft);display:grid;place-items:center;font-size:14px}.reason-item strong{font-size:13px;display:block}.reason-item span{font-size:12px;color:var(--muted)}
+  .conversation{background:#102f29;color:white;padding:20px;border-radius:18px}.conversation small{color:#a9c7bf;text-transform:uppercase;letter-spacing:.08em}.conversation p{font-size:18px;line-height:1.45;margin:10px 0 16px}.conversation .sub{font-size:12px;color:#c6d9d4;margin:0}
+  .feedback{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.feedback button{border:1px solid var(--line);background:white;padding:10px;border-radius:10px;font-size:12px}
+  .toast{position:fixed;right:24px;bottom:24px;background:#102f29;color:white;border-radius:14px;padding:13px 16px;box-shadow:var(--shadow);display:none;z-index:60;max-width:330px;font-size:13px}.toast.show{display:block;animation:in .22s ease}@keyframes in{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat-card{padding:18px}.stat-card span{font-size:12px;color:var(--muted)}.stat-card strong{font-size:26px;display:block;margin:7px 0 2px}.delta{font-size:11px;color:var(--brand)}
+  .rank-list{display:grid;gap:8px}.rank-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.rank-row:last-child{border-bottom:0}.rank-no{width:28px;height:28px;border-radius:8px;background:#f1f4f6;display:grid;place-items:center;font-weight:700;font-size:12px}.rank-row strong{font-size:13px}.rank-row span{font-size:11px;color:var(--muted)}
+  .manager-banner{background:linear-gradient(135deg,#eef5ff,#f4f1ff);border:1px solid #dfe8f7;border-radius:20px;padding:20px;display:flex;justify-content:space-between;align-items:center;gap:18px}.manager-banner h3{margin:0 0 5px}.manager-banner p{margin:0;color:var(--muted);font-size:13px}
+  .alert-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}.alert-row:last-child{border-bottom:0}.alert-row .left{display:flex;gap:11px;align-items:flex-start}.dot{width:10px;height:10px;border-radius:50%;margin-top:5px}.dot.red{background:#dd5b5b}.dot.amber{background:#ecab43}.dot.green{background:#45a47f}.alert-row strong{font-size:13px}.alert-row p{font-size:12px;color:var(--muted);margin:2px 0 0}
+  .contest{padding:22px;background:linear-gradient(135deg,#182638,#2a3850);color:white}.contest h3{margin:6px 0}.contest p{margin:0;color:#c9d1dc;font-size:13px}.contest .meter{height:9px;background:rgba(255,255,255,.14);border-radius:20px;margin:18px 0 10px;overflow:hidden}.contest .meter span{display:block;height:100%;width:64%;background:white;border-radius:20px}.contest .row{display:flex;justify-content:space-between;font-size:12px;color:#d7dee7}
+  .mobile-tabs{display:none}
+  .modal{position:fixed;inset:0;background:rgba(8,20,30,.52);display:none;align-items:flex-end;justify-content:center;z-index:80}.modal.show{display:flex}.sheet{background:white;border-radius:24px 24px 0 0;padding:22px;width:min(560px,100%);box-shadow:0 -10px 40px rgba(0,0,0,.16)}.sheet h3{margin:0 0 6px}.sheet p{margin:0 0 14px;color:var(--muted);font-size:13px}.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.outcomes button{border:1px solid var(--line);background:white;border-radius:12px;padding:12px;text-align:left;font-size:12px}.outcomes button:hover{border-color:#aec6bf;background:#f7fbfa}
+  .subtle{font-size:11px;color:var(--muted)}
+  .planner{display:grid;gap:10px}
+  .plan-slot{display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+  .plan-slot:last-child{border-bottom:0}.plan-time{font-weight:700;font-size:13px}.plan-task strong{display:block;font-size:14px}.plan-task span{font-size:12px;color:var(--muted)}
+  .plan-actions{display:flex;gap:6px}.tiny-btn{border:1px solid var(--line);background:white;border-radius:9px;padding:7px 9px;font-size:11px;font-weight:600;color:var(--ink)}
+  .tiny-btn.done{background:var(--brand-soft);border-color:#cfe8e0;color:var(--brand-2)}
+  .follow-card{padding:16px;border-left:3px solid var(--accent);background:#fffaf1}.follow-card strong{display:block;font-size:14px;margin-bottom:4px}.follow-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+  .follow-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.status-chip{border-radius:100px;padding:5px 8px;font-size:10px;font-weight:700;background:#f2f5f7;color:#5c6878}.status-chip.opened{background:var(--blue-soft);color:#2d68af}.status-chip.wait{background:var(--accent-soft);color:#91601b}
+  .action-tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.tool-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:left;transition:.18s}.tool-card:hover{border-color:#b9cec8;box-shadow:0 8px 18px rgba(20,33,52,.06);transform:translateY(-1px)}.tool-card .tool-icon{width:32px;height:32px;border-radius:10px;background:var(--brand-soft);display:grid;place-items:center;margin-bottom:10px}.tool-card strong{display:block;font-size:13px}.tool-card span{display:block;color:var(--muted);font-size:11px;line-height:1.4;margin-top:3px}
+  .portfolio-panel{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}.portfolio-panel.show{display:block;animation:fadeIn .18s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .portfolio-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.portfolio-kpi{background:#f7f9fb;border-radius:12px;padding:11px}.portfolio-kpi span{font-size:10px;color:var(--muted);display:block}.portfolio-kpi strong{font-size:14px;display:block;margin-top:4px}.allocation{display:grid;gap:8px;margin-top:14px}.allocation-row{display:grid;grid-template-columns:88px 1fr 52px;gap:9px;align-items:center;font-size:11px}.allocation-bar{height:7px;background:#edf1f4;border-radius:8px;overflow:hidden}.allocation-bar i{display:block;height:100%;background:var(--brand);border-radius:8px}
+  .pitch-preview{background:#f7faf9;border:1px solid #dceae6;border-radius:15px;padding:15px;margin:13px 0}.pitch-preview h4{margin:0 0 6px}.pitch-preview p{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 10px}.share-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.share-row button{border:1px solid var(--line);background:white;border-radius:11px;padding:10px 8px;font-weight:600;font-size:11px}
+  .soft-note{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:11px;font-size:11px;color:var(--muted);line-height:1.45}
+  @media(max-width:900px){
+    .app{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 16px}.content{padding:18px 14px 90px}.role-switch{display:none}.page-title{font-size:16px}
+    .hero{padding:20px;border-radius:22px}.hero-grid{grid-template-columns:1fr}.hero h2{font-size:29px}.hero .big-num{font-size:42px}.hero-stats{grid-template-columns:repeat(3,1fr)}
+    .grid,.detail-layout{grid-template-columns:1fr}.opp-grid{grid-template-columns:1fr}.opportunity{grid-template-columns:1fr}.score-box{display:none}.stat-grid{grid-template-columns:repeat(2,1fr)}
+    .mobile-tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);z-index:40;padding:7px 4px max(7px,env(safe-area-inset-bottom));box-shadow:0 -8px 20px rgba(0,0,0,.05)}
+    .mobile-tabs button{border:0;background:transparent;color:#667488;font-size:10px;padding:6px 2px;display:grid;gap:3px;place-items:center}.mobile-tabs button.active{color:var(--brand);font-weight:700}.mobile-tabs b{font-size:17px;font-weight:500}
+    .manager-banner{align-items:flex-start;flex-direction:column}.client-hero .top{flex-direction:column}.journey{overflow:auto;padding-bottom:4px}.journey-step{min-width:110px}
+    .feedback{grid-template-columns:1fr 1fr}.top-actions .subtle{display:none}
+    .plan-slot{grid-template-columns:72px 1fr}.plan-actions{grid-column:2}.action-tools{grid-template-columns:1fr}.portfolio-summary{grid-template-columns:repeat(2,1fr)}.share-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">G</div><div><h1>Opportunity Workspace</h1><small>AI sales action layer · MVP</small></div></div>
+    <div class="nav">
+      <button class="active" data-view="today">◉ Today <span class="count">11</span></button>
+      <button data-view="opportunities">✦ Opportunities</button>
+      <button data-view="clients">◎ Clients</button>
+      <button data-view="progress">↗ Progress</button>
+      <button data-view="manager">▦ Manager View</button>
+    </div>
+    <div class="side-card"><strong>Design principle</strong><p>Never make the salesperson analyse data the system can interpret for them.</p></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="page-title" id="pageTitle">Today</div>
+      <div class="top-actions">
+        <span class="subtle">Demo role</span>
+        <div class="role-switch"><button id="rmRole" class="active">RM</button><button id="bmRole">Branch Manager</button></div>
+        <div class="avatar">AK</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <section class="view active" id="today">
+        <div class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow" style="color:#97d6c5">Good morning, Anoop</div>
+              <h2>Your best opportunities are ready.</h2>
+              <p>You have <strong>11 relevant opportunities</strong> today. Start with the 5 that are most likely to turn into meaningful customer conversations.</p>
+              <button class="primary" onclick="openDetail(0)">Start with the best opportunity →</button>
+              <div class="hero-stats">
+                <div class="hero-stat"><strong>4</strong><span>Investment opportunities</span></div>
+                <div class="hero-stat"><strong>3</strong><span>MF opportunities</span></div>
+                <div class="hero-stat"><strong>2</strong><span>Wealth Creator moves</span></div>
+              </div>
+            </div>
+            <div><div class="big-num">5</div><div class="big-label">priority conversations for today</div></div>
+          </div>
+        </div>
+
+        <div class="section-head"><div><h3>Your day, already organised</h3><p>A simple plan built from today’s most relevant opportunities. Adjust only if you need to.</p></div><span class="pill">~70 min focused activity</span></div>
+        <div class="card pad planner">
+          <div class="plan-slot"><div class="plan-time">9:30–10:30</div><div class="plan-task"><strong>3 priority conversations</strong><span>Rajesh · Priya · Manoj</span></div><div class="plan-actions"><button class="tiny-btn" onclick="openDetail(0)">Start</button><button class="tiny-btn" onclick="quickAction('Morning block moved to 11:30 AM')">Move</button></div></div>
+          <div class="plan-slot"><div class="plan-time">11:30–12:00</div><div class="plan-task"><strong>2 plan follow-ups</strong><span>Clients who viewed a proposal but haven’t responded</span></div><div class="plan-actions"><button class="tiny-btn" onclick="quickAction('Follow-up block opened')">Review</button><button class="tiny-btn" onclick="quickAction('Reminder set for 11:30 AM')">Remind me</button></div></div>
+          <div class="plan-slot"><div class="plan-time">2:30–3:00</div><div class="plan-task"><strong>Portfolio review · Arun Nair</strong><span>One relationship gap remains before Wealth Creator</span></div><div class="plan-actions"><button class="tiny-btn" onclick="openDetail(3)">Open</button></div></div>
+          <div class="plan-slot"><div class="plan-time">4:00–4:30</div><div class="plan-task"><strong>Close the loop</strong><span>Update outcomes and clear remaining follow-ups</span></div><div class="plan-actions"><button class="tiny-btn" onclick="showOutcome()">Update</button></div></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <div class="section-head"><div><h3>Start here</h3><p>The highest-value action we found for you.</p></div><button class="link-btn" data-go="opportunities">See all →</button></div>
+            <div class="card opportunity">
+              <div>
+                <div class="op-head"><span class="pill hot">🔥 Best opportunity</span><span class="pill mf">Long-term investment</span></div>
+                <div class="client-name">Rajesh Kumar</div>
+                <div class="signal">₹8.4L has stayed idle for 45 days.</div>
+                <div class="reason">Active equity investor · No MF exposure · Stable investible surplus</div>
+                <div class="card-actions">
+                  <button class="primary brand" onclick="openDetail(0)">View opportunity</button>
+                  <button class="icon-btn" onclick="quickAction('Call started for Rajesh')">☎ Call</button>
+                  <button class="icon-btn" onclick="quickAction('WhatsApp conversation prepared')">◌ WhatsApp</button>
+                </div>
+              </div>
+              <div class="score-box"><strong>94</strong><span>relevance</span></div>
+            </div>
+
+            <div class="section-head"><div><h3>Next up</h3><p>No hunting through dashboards. Just the next relevant actions.</p></div></div>
+            <div class="list" id="nextList"></div>
+          </div>
+          <div>
+            <div class="section-head"><div><h3>Your mission</h3><p>Progress over pressure.</p></div></div>
+            <div class="card pad mission-card">
+              <span class="pill hot">Today</span>
+              <h4>Help 2 customers progress toward Wealth Creator.</h4>
+              <p>Focus on customers where a relevant long-term relationship gap already exists.</p>
+              <div class="mission-row"><div class="ring"><span>72%</span></div><div><strong>3 of 5 priority actions done</strong><div class="subtle">2 more meaningful conversations to go</div></div></div>
+            </div>
+            <div class="signal-box"><div class="label">Something changed</div><strong>One of your top traders just built a large cash balance.</strong><p>We spotted ₹6.2L accumulating over the last 30 days. This could be worth a conversation.</p><button class="link-btn" onclick="openDetail(3)">Take a look →</button></div>
+            <div class="signal-box"><div class="label">Almost there</div><strong>4 clients are close to Wealth Creator status.</strong><p>Two of them have an obvious next relationship step based on current holdings.</p><button class="link-btn" data-go="clients">Show me →</button></div>
+            <div class="section-head"><div><h3>Worth a follow-up</h3><p>Only when the timing looks useful.</p></div></div>
+            <div class="card follow-card"><strong>Meera viewed the SIP Story twice.</strong><p>You shared it 2 days ago. No reply yet — a short, gentle follow-up may be timely.</p><div class="follow-meta"><span class="status-chip opened">Opened twice</span><span class="status-chip">2 days ago</span></div><div class="card-actions"><button class="tiny-btn" onclick="quickAction('Gentle follow-up prepared for Meera')">Prepare follow-up</button><button class="tiny-btn" onclick="quickAction('Follow-up snoozed for 2 days')">Not today</button></div></div>
+            <div class="card follow-card" style="margin-top:10px;border-left-color:#9aa6b2;background:#fafbfc"><strong>Give Suresh some space.</strong><p>Two outreach attempts this week with no response. No follow-up recommended today.</p><div class="follow-meta"><span class="status-chip wait">Cooling period</span></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="opportunities">
+        <div class="eyebrow">Opportunity feed</div><h2>Relevant conversations, not a lead dump.</h2><p class="lead">Each opportunity explains why it surfaced, what changed and the simplest next action.</p>
+        <div class="filters"><button class="filter active" data-filter="all">All 11</button><button class="filter" data-filter="mf">Mutual Funds</button><button class="filter" data-filter="equity">Equity</button><button class="filter" data-filter="insurance">Insurance</button><button class="filter" data-filter="wealth">Wealth Creator</button></div>
+        <div class="opp-grid" id="oppGrid"></div>
+      </section>
+
+      <section class="view" id="clients">
+        <div class="eyebrow">Client journey</div><h2>See who is ready to progress.</h2><p class="lead">Not every client needs another product. Focus on relationship gaps that make sense.</p>
+        <div class="card pad">
+          <div class="section-head" style="margin-top:0"><div><h3>Closest to Wealth Creator</h3><p>Based on the current MVP rules.</p></div><span class="pill">4 clients</span></div>
+          <div class="list" id="wealthList"></div>
+        </div>
+      </section>
+
+      <section class="view" id="detail">
+        <button class="back" onclick="go('opportunities')">← Back to opportunities</button>
+        <div id="detailContent"></div>
+      </section>
+
+      <section class="view" id="progress">
+        <div class="eyebrow">My progress</div><h2>Momentum you can feel.</h2><p class="lead">Rewarding the right sales behaviours — not only the final transaction.</p>
+        <div class="stat-grid">
+          <div class="card stat-card"><span>Priority actions completed</span><strong>18</strong><div class="delta">↑ 20% vs last week</div></div>
+          <div class="card stat-card"><span>Meaningful conversations</span><strong>13</strong><div class="delta">72% of actions</div></div>
+          <div class="card stat-card"><span>Customers progressed</span><strong>6</strong><div class="delta">toward Wealth Creator</div></div>
+          <div class="card stat-card"><span>Action streak</span><strong>🔥 6 days</strong><div class="delta">Personal best: 9</div></div>
+        </div>
+        <div class="grid" style="margin-top:18px">
+          <div class="card pad">
+            <div class="section-head" style="margin-top:0"><div><h3>This week's rhythm</h3><p>Your focus is consistency, not screen time.</p></div></div>
+            <div class="mini-stat"><span>Mon</span><strong>5 / 5 priority actions</strong></div><div class="mini-stat"><span>Tue</span><strong>4 / 5</strong></div><div class="mini-stat"><span>Wed</span><strong>3 / 5</strong></div><div class="mini-stat"><span>Thu</span><strong>5 / 5</strong></div><div class="mini-stat"><span>Today</span><strong>3 / 5</strong></div>
+          </div>
+          <div class="card contest">
+            <span class="pill" style="background:rgba(255,255,255,.12);color:white">🏆 September challenge</span>
+            <h3>Wealth Builder Sprint</h3><p>Help relevant clients move toward a more complete long-term investment relationship.</p>
+            <div class="meter"><span></span></div><div class="row"><span>8 progressed</span><span>Goal 12</span></div>
+            <button class="primary" style="margin-top:18px" onclick="quickAction('Contest opportunities filtered')">Show contest opportunities →</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="manager">
+        <div class="eyebrow">Branch manager view</div><h2>Know where your team needs help.</h2><p class="lead">Less reporting. More coaching and intervention.</p>
+        <div class="manager-banner"><div><h3>Kakkanad Branch · Today</h3><p>47 opportunities found · 29 acted on · 18 still open</p></div><button class="secondary">View team priorities</button></div>
+        <div class="stat-grid" style="margin-top:16px">
+          <div class="card stat-card"><span>High-priority untouched</span><strong>6</strong><div class="delta" style="color:var(--danger)">Needs attention</div></div>
+          <div class="card stat-card"><span>RMs started today</span><strong>7 / 9</strong><div class="delta">2 need a nudge</div></div>
+          <div class="card stat-card"><span>Customers progressed</span><strong>4</strong><div class="delta">today</div></div>
+          <div class="card stat-card"><span>Branch contest position</span><strong>#4</strong><div class="delta">3 actions from #3</div></div>
+        </div>
+        <div class="grid" style="margin-top:18px">
+          <div class="card pad">
+            <div class="section-head" style="margin-top:0"><div><h3>Needs your attention</h3><p>Only exceptions worth intervening on.</p></div></div>
+            <div class="alert-row"><div class="left"><span class="dot red"></span><div><strong>6 high-priority opportunities untouched</strong><p>Mostly in equity-to-long-term investment opportunities.</p></div></div><button class="link-btn">Review →</button></div>
+            <div class="alert-row"><div class="left"><span class="dot amber"></span><div><strong>2 RMs have not started today's mission</strong><p>Akhil and Nisha have 11 priority opportunities combined.</p></div></div><button class="link-btn">Nudge →</button></div>
+            <div class="alert-row"><div class="left"><span class="dot green"></span><div><strong>4 customers progressed today</strong><p>Good momentum from the MF team.</p></div></div><button class="link-btn">See wins →</button></div>
+          </div>
+          <div class="card pad">
+            <div class="section-head" style="margin-top:0"><div><h3>Team rhythm</h3><p>Who may need coaching?</p></div></div>
+            <div class="rank-list"><div class="rank-row"><div class="rank-no">1</div><div><strong>Meera</strong><br><span>6 of 6 priority actions</span></div><b>100%</b></div><div class="rank-row"><div class="rank-no">2</div><div><strong>Arun</strong><br><span>7 of 9 priority actions</span></div><b>78%</b></div><div class="rank-row"><div class="rank-no">3</div><div><strong>Akhil</strong><br><span>1 of 8 priority actions</span></div><b>13%</b></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="mobile-tabs">
+  <button class="active" data-view="today"><b>◉</b>Today</button><button data-view="opportunities"><b>✦</b>Opportunities</button><button data-view="clients"><b>◎</b>Clients</button><button data-view="progress"><b>↗</b>Progress</button><button data-view="manager"><b>▦</b>Manager</button>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal" onclick="if(event.target===this) closeModal()"><div class="sheet"><h3>How did it go?</h3><p>A 2-second update helps the system learn what is useful for you.</p><div class="outcomes"><button onclick="completeOutcome('Interested')">👍 Interested</button><button onclick="completeOutcome('Follow up later')">🕒 Follow up later</button><button onclick="completeOutcome('Not relevant')">↘ Not relevant</button><button onclick="completeOutcome('Already invested')">✓ Already invested</button><button onclick="completeOutcome('Not suitable')">⊘ Not suitable</button><button onclick="completeOutcome('Wrong signal')">⚑ Wrong signal</button></div><button class="link-btn" style="margin-top:12px" onclick="closeModal()">Cancel</button></div></div>
+<div class="modal" id="pitchModal" onclick="if(event.target===this) closePitch()"><div class="sheet"><div id="pitchContent"></div><button class="link-btn" style="margin-top:12px" onclick="closePitch()">Close</button></div></div>
+
+<script>
+const opportunities = [
+ {name:'Rajesh Kumar',type:'mf',tag:'Long-term investment',signal:'₹8.4L idle balance for 45 days',reason:'Active equity investor · No MF exposure · Stable surplus',score:94,potential:'₹8.4L',stage:'Trader → Investor',why:['₹8.4L average cash balance over 45 days','Equity activity remains consistent','No long-term investment products with Geojit'],next:'Explore long-term investment needs',script:'Rajesh, you’ve been actively investing in equities with us for some time. I noticed your longer-term allocation is still fairly limited. Would it be useful if we looked at how some of this surplus could work toward your longer-term goals?'},
+ {name:'Priya Menon',type:'mf',tag:'SIP enhancement',signal:'Income signal improved; SIP unchanged for 18 months',reason:'Existing SIP ₹5,000 · Stable contribution history',score:89,potential:'₹10K SIP',stage:'Investor → Diversified',why:['SIP has remained unchanged for 18 months','Consistent investment behaviour','Recent cashflow trend suggests higher capacity'],next:'Review whether the current SIP still matches her goal',script:'Priya, your SIP has been running consistently for quite a while. It may be a good time to review whether the amount still matches the goal you started with.'},
+ {name:'Manoj Varghese',type:'insurance',tag:'Protection gap',signal:'Investment relationship is strong; protection is missing',reason:'MF + Equity client · No insurance relationship visible',score:86,potential:'Protection',stage:'Investor → Wealth Creator',why:['Strong long-term investment relationship','No protection product currently mapped','Family profile data indicates a review may be relevant'],next:'Start a protection-needs conversation',script:'Manoj, we’ve built a good investment relationship over the years. One area we haven’t reviewed together is protection. Would you be open to a quick check on whether your current cover is adequate?'},
+ {name:'Arun Nair',type:'wealth',tag:'Wealth Creator move',signal:'Only one relationship gap remains',reason:'Equity + MF + protection · No advisory portfolio',score:91,potential:'1 step',stage:'Diversified → Wealth Creator',why:['Uses multiple long-term products','Protection relationship already exists','Advisory portfolio is the largest remaining relationship gap'],next:'Explore advisory / managed portfolio need',script:'Arun, your portfolio is already well spread across multiple areas. The next useful conversation may be whether you want more structured portfolio guidance rather than managing every allocation independently.'},
+ {name:'Lakshmi R',type:'equity',tag:'Equity activation',signal:'Account funded, but no equity activity yet',reason:'New account · ₹3.2L balance · Research opened twice',score:82,potential:'₹3.2L',stage:'New → Active Investor',why:['Trading account funded','No completed trade yet','Research content opened twice in the last week'],next:'Help complete the first investment action',script:'Lakshmi, I noticed your account is ready and funded. If you’d like, I can help you get comfortable with the platform and discuss how to approach your first investment.'},
+ {name:'Suresh Babu',type:'wealth',tag:'Re-engagement',signal:'Large client, no human conversation in 112 days',reason:'High relationship value · Recent portfolio movement',score:87,potential:'Relationship',stage:'Investor → Re-engage',why:['High relationship value','No RM interaction for 112 days','Recent portfolio activity suggests renewed interest'],next:'Reconnect before making any product suggestion',script:'Suresh, it’s been a while since we last spoke. I wanted to check in and understand if anything has changed in your investment priorities before we discuss anything specific.'}
+];
+let activeFilter='all', currentOpp=0;
+
+function go(id){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+ const labels={today:'Today',opportunities:'Opportunities',clients:'Clients',progress:'Progress',manager:'Manager View',detail:'Opportunity'};
+ document.getElementById('pageTitle').textContent=labels[id]||'Opportunity';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+
+function pillClass(type){return type==='mf'?'mf':type==='insurance'?'ins':type==='equity'?'eq':'hot'}
+function renderOpps(){
+ const grid=document.getElementById('oppGrid');
+ const data=opportunities.filter(o=>activeFilter==='all'||o.type===activeFilter);
+ grid.innerHTML=data.map((o)=>{const i=opportunities.indexOf(o);return `<div class="card opp-tile" onclick="openDetail(${i})"><div class="meta"><span class="pill ${pillClass(o.type)}">${o.tag}</span><span class="subtle">${o.score}% relevant</span></div><h4>${o.name}</h4><p><strong>${o.signal}</strong><br>${o.reason}</p><div class="bottom"><span>${o.stage}</span><b>View →</b></div></div>`}).join('');
+}
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderOpps()}));
+
+function renderNext(){
+ document.getElementById('nextList').innerHTML=opportunities.slice(1,4).map((o,i)=>`<div class="card opportunity" style="padding:15px 17px"><div><div class="op-head"><span class="pill ${pillClass(o.type)}">${i+2}</span><span class="pill ${pillClass(o.type)}">${o.tag}</span></div><div class="client-name" style="font-size:16px">${o.name}</div><div class="reason"><strong>${o.signal}</strong> · ${o.reason}</div><button class="link-btn" onclick="openDetail(${i+1})">View opportunity →</button></div><div class="score-box"><strong>${o.score}</strong><span>relevance</span></div></div>`).join('');
+}
+function renderWealth(){
+ const list=[opportunities[3],opportunities[2],opportunities[0],opportunities[5]];
+ document.getElementById('wealthList').innerHTML=list.map((o,idx)=>`<div class="opportunity" style="padding:15px 0;border-bottom:${idx<list.length-1?'1px solid var(--line)':'0'}"><div><div class="op-head"><span class="pill ${idx===0?'hot':''}">${idx===0?'1 step away':'Relationship opportunity'}</span></div><div class="client-name" style="font-size:16px">${o.name}</div><div class="reason">${o.stage} · ${o.signal}</div></div><button class="secondary" onclick="openDetail(${opportunities.indexOf(o)})">View</button></div>`).join('');
+}
+
+function defaultTool(o){return o.type==='mf'?'SIP Story':o.type==='insurance'?'Protection Review':o.type==='equity'?'Portfolio Analyser':'Wealth Plan'}
+function portfolioData(i){
+ const sets=[
+  {total:'₹29.4L',eq:'₹18.6L',mf:'₹2.4L',cash:'₹8.4L',other:'—',alloc:[['Equity',63],['Mutual Funds',8],['Cash',29]]},
+  {total:'₹18.2L',eq:'₹3.1L',mf:'₹13.9L',cash:'₹1.2L',other:'—',alloc:[['Mutual Funds',76],['Equity',17],['Cash',7]]},
+  {total:'₹41.8L',eq:'₹17.4L',mf:'₹21.2L',cash:'₹3.2L',other:'Protection gap',alloc:[['Mutual Funds',51],['Equity',42],['Cash',7]]},
+  {total:'₹62.5L',eq:'₹22.5L',mf:'₹28.0L',cash:'₹4.0L',other:'₹8.0L other',alloc:[['Mutual Funds',45],['Equity',36],['Other',13],['Cash',6]]},
+  {total:'₹3.2L',eq:'—',mf:'—',cash:'₹3.2L',other:'—',alloc:[['Cash',100]]},
+  {total:'₹84.0L',eq:'₹32.0L',mf:'₹39.0L',cash:'₹5.0L',other:'₹8.0L other',alloc:[['Mutual Funds',46],['Equity',38],['Other',10],['Cash',6]]}
+ ]; return sets[i%sets.length];
+}
+function togglePortfolio(){const p=document.getElementById('portfolioPanel'); if(!p)return; p.classList.toggle('show'); const b=document.getElementById('portfolioToggle'); if(b)b.textContent=p.classList.contains('show')?'Hide portfolio details ↑':'View portfolio details →'}
+function openDetail(i){currentOpp=i; const o=opportunities[i], pf=portfolioData(i), tool=defaultTool(o);
+ document.getElementById('detailContent').innerHTML=`<div class="detail-layout"><div><div class="card client-hero"><div class="top"><div><div class="eyebrow">${o.tag}</div><h2>${o.name}</h2><p>${o.stage}</p></div><span class="pill hot">${o.score}% relevance</span></div><div class="journey"><div class="journey-step done"><strong>Trader</strong>Active</div><div class="journey-step active"><strong>Investor</strong>Building</div><div class="journey-step"><strong>Diversified</strong>Next</div><div class="journey-step"><strong>Wealth Creator</strong>Goal</div></div></div>
+ <div class="card pad" style="margin-top:16px"><div class="eyebrow">Why you’re seeing this</div><h3 style="margin:7px 0 4px">${o.signal}</h3><p class="lead" style="margin-bottom:10px">${o.reason}</p><div class="reason-list">${o.why.map((x,j)=>`<div class="reason-item"><div class="reason-icon">${['↗','◎','✦'][j]||'•'}</div><div><strong>${x}</strong><span>${j===0?'Observed customer signal':j===1?'Relationship pattern':'Current product relationship'}</span></div></div>`).join('')}</div></div>
+ <div class="card pad" style="margin-top:16px"><div class="eyebrow">Suggested next step</div><h3 style="margin:7px 0 3px">${o.next}</h3><p class="lead" style="margin-bottom:14px">The system is suggesting a conversation — not an automatic product recommendation.</p><div class="card-actions"><button class="primary brand" onclick="quickAction('Calling ${o.name}…')">☎ Call client</button><button class="secondary" onclick="quickAction('WhatsApp draft prepared for ${o.name}')">◌ Prepare WhatsApp</button><button class="secondary" onclick="showOutcome()">Mark outcome</button></div></div>
+ <div class="card pad" style="margin-top:16px"><div class="eyebrow">Prepare something useful</div><h3 style="margin:7px 0 3px">Create a personalised pitch in one tap.</h3><p class="lead" style="margin-bottom:4px">Customer context is pre-filled. Review, personalise and share — without leaving this opportunity.</p><div class="action-tools"><button class="tool-card" onclick="openPitch('SIP Story')"><span class="tool-icon">◎</span><strong>SIP Story</strong><span>Turn a goal into a simple SIP plan and story.</span></button><button class="tool-card" onclick="openPitch('Portfolio Analyser')"><span class="tool-icon">◫</span><strong>Portfolio Analyser</strong><span>Show allocation, concentration and possible gaps.</span></button><button class="tool-card" onclick="openPitch('Wealth Plan')"><span class="tool-icon">✦</span><strong>Wealth Plan</strong><span>Build the next-step relationship roadmap.</span></button><button class="tool-card" onclick="openPitch('Protection Review')"><span class="tool-icon">◇</span><strong>Protection Review</strong><span>Prepare a needs-led protection conversation.</span></button></div><div class="soft-note" style="margin-top:10px">Suggested for this opportunity: <strong>${tool}</strong>. The RM can still choose another tool when it better fits the conversation.</div></div></div>
+ <div><div class="conversation"><small>Conversation assist</small><p>“${o.script}”</p><p class="sub">Use this as a starting point. Keep the conversation natural and suitability-led.</p></div><div class="card pad" style="margin-top:16px"><div class="eyebrow">Relationship snapshot</div><div class="mini-stat"><span>Opportunity value</span><strong>${o.potential}</strong></div><div class="mini-stat"><span>Last interaction</span><strong>${i===5?'112 days ago':'12 days ago'}</strong></div><div class="mini-stat"><span>Client since</span><strong>${2018+i}</strong></div><div class="mini-stat"><span>AI confidence</span><strong>${o.score}%</strong></div><button class="link-btn" id="portfolioToggle" onclick="togglePortfolio()">View portfolio details →</button><div class="portfolio-panel" id="portfolioPanel"><div class="portfolio-summary"><div class="portfolio-kpi"><span>Total relationship</span><strong>${pf.total}</strong></div><div class="portfolio-kpi"><span>Equity</span><strong>${pf.eq}</strong></div><div class="portfolio-kpi"><span>Mutual Funds</span><strong>${pf.mf}</strong></div><div class="portfolio-kpi"><span>Cash / other</span><strong>${pf.cash}</strong></div></div><div class="allocation">${pf.alloc.map(a=>`<div class="allocation-row"><span>${a[0]}</span><div class="allocation-bar"><i style="width:${a[1]}%"></i></div><strong>${a[1]}%</strong></div>`).join('')}</div><div class="soft-note" style="margin-top:12px">This is the deeper evidence layer. Holdings, transactions, P&L and full CRM history would remain available only when the RM intentionally drills down.</div><button class="link-btn" onclick="quickAction('Full holdings and CRM history would open here')">Open full portfolio / CRM ↗</button></div></div><div class="signal-box"><div class="label">Data transparency</div><strong>Why this signal exists</strong><p>Only the customer attributes relevant to this opportunity are shown here. Managers see coaching-level information, not unrestricted personal detail.</p></div></div></div>`;
+ go('detail');
+}
+function openPitch(tool){
+ const o=opportunities[currentOpp];
+ const copy={
+  'SIP Story':{title:'A simple SIP path for your next goal',body:`Prepared for ${o.name}: a goal-led monthly investing illustration using the customer’s current relationship context. The RM can review the amount, horizon and suggested allocation before sharing.`},
+  'Portfolio Analyser':{title:'Your portfolio at a glance',body:`Prepared for ${o.name}: a simple view of current allocation, concentration and relationship gaps, followed by discussion prompts rather than an automatic recommendation.`},
+  'Wealth Plan':{title:'Your next steps toward a stronger long-term portfolio',body:`Prepared for ${o.name}: an easy-to-understand relationship roadmap showing what is already in place and which long-term areas may be worth discussing next.`},
+  'Protection Review':{title:'A quick protection check',body:`Prepared for ${o.name}: a needs-led review template that helps the RM start a protection conversation without jumping straight to a product.`}
+ }[tool];
+ document.getElementById('pitchContent').innerHTML=`<div class="eyebrow">Instant personalised pitch</div><h3 style="margin:6px 0 4px">${tool} · ${o.name}</h3><p>Pre-filled from the customer profile. Review before sharing.</p><div class="pitch-preview"><h4>${copy.title}</h4><p>${copy.body}</p><div class="mini-stat"><span>Opportunity context</span><strong>${o.signal}</strong></div><div class="mini-stat"><span>Suggested conversation</span><strong>${o.next}</strong></div></div><div class="share-row"><button onclick="sharePitch('WhatsApp','${tool}')">◌ WhatsApp</button><button onclick="sharePitch('Email','${tool}')">✉ Email</button><button onclick="sharePitch('Print / PDF','${tool}')">▤ Print / PDF</button></div><div class="soft-note" style="margin-top:10px">In production, suitability rules, approved content templates and required disclosures would be applied before the plan is sent.</div>`;
+ document.getElementById('pitchModal').classList.add('show');
+}
+function closePitch(){document.getElementById('pitchModal').classList.remove('show')}
+function sharePitch(channel,tool){closePitch();quickAction(`${tool} shared via ${channel}. Follow-up will surface only if useful.`)}
+
+function quickAction(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function showOutcome(){document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function completeOutcome(x){closeModal();quickAction(`Saved: ${x}. Next best opportunity is ready.`);setTimeout(()=>openDetail((currentOpp+1)%opportunities.length),800)}
+
+document.getElementById('rmRole').onclick=()=>{document.getElementById('rmRole').classList.add('active');document.getElementById('bmRole').classList.remove('active');go('today')}
+document.getElementById('bmRole').onclick=()=>{document.getElementById('bmRole').classList.add('active');document.getElementById('rmRole').classList.remove('active');go('manager')}
+renderOpps(); renderNext(); renderWealth();
+</script>
+</body>
+</html>
