@@ -167,8 +167,38 @@
   .recovery-note{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--accent-soft);color:#72522b;font-size:11px;line-height:1.45;display:flex;gap:8px;align-items:flex-start}.recovery-note b{color:#5f431f}
   .momentum-card{margin-top:16px}.momentum-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.momentum-step{position:relative;background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:12px}.momentum-step:not(:last-child):after{content:'→';position:absolute;right:-9px;top:50%;transform:translateY(-50%);z-index:2;color:#a3aebb;font-weight:700}.momentum-step span{font-size:10px;color:var(--muted);display:block}.momentum-step strong{font-size:17px;display:block;margin-top:4px;color:#253448}
   .amount-note{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:10px;color:var(--muted)}.amount-note:before{content:'i';width:15px;height:15px;border:1px solid #cfd7df;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:700;color:#6f7c8a}
+  .day-context{margin-top:14px;background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:16px;padding:12px 15px;display:grid;grid-template-columns:1fr 1fr;gap:0;box-shadow:0 5px 14px rgba(20,33,52,.025);backdrop-filter:blur(10px)}
+  .day-context .context-item{display:flex;gap:10px;align-items:flex-start;min-width:0;padding-right:16px}
+  .day-context .context-item+ .context-item{border-left:1px solid var(--line);padding-left:16px;padding-right:0}
+  .day-context .context-icon{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:13px;background:var(--blue-soft);color:var(--blue)}
+  .day-context .weather-icon{background:#f3f4f6;color:#596778}
+  .day-context strong{display:block;font-size:12px;line-height:1.35}.day-context p{margin:3px 0 0;color:var(--muted);font-size:10.5px;line-height:1.45}
+  .day-context .mood-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#6c8cae;margin-right:5px;vertical-align:1px;box-shadow:0 0 0 0 rgba(108,140,174,.22);animation:contextPulse 2.8s ease-out 1}
+  @keyframes contextPulse{0%{box-shadow:0 0 0 0 rgba(108,140,174,.24)}70%{box-shadow:0 0 0 8px rgba(108,140,174,0)}100%{box-shadow:none}}
+  .hero.market-constructive{background:linear-gradient(135deg,#ffffff 0%,#f4f7fa 62%,#f3f6f4 100%)}
+  .pill.mtf{background:#eef5f4;color:#496e68}
+
+  /* Minimal home: decision first, detail on demand */
+  .home-minimal{max-width:900px;margin:0 auto}
+  .minimal-hero{padding:34px 36px;box-shadow:0 10px 30px rgba(24,34,48,.045)}
+  .minimal-hero:after{width:260px;height:260px;right:-110px;top:-145px;opacity:.65}
+  .minimal-hero h2{font-size:42px;margin:8px 0 7px;letter-spacing:-.035em}
+  .minimal-hero h2 span{color:#243243}
+  .hero-summary{font-size:14px!important;margin:0 0 22px!important;color:var(--muted)!important}
+  .hero-cta{padding:12px 18px}
+  .yesterday-inline{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}
+  .yesterday-inline strong{font-size:11px;color:#344253}.yesterday-inline i{font-style:normal;color:#b0b9c3}
+  .ambient-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:13px 2px;margin:9px 0 25px;color:#647283;font-size:11px}
+  .ambient-line strong{color:#364657;font-weight:600}.ambient-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:1px}.ambient-dot.market{background:#718da5}.ambient-sep{color:#c2c9d0}
+  .day-plan-minimal{margin-top:4px}.day-plan-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:11px}.day-plan-head h3{font-size:18px;margin:4px 0 0}.day-plan-head .link-btn{font-size:11px}
+  .day-glance{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px 20px;box-shadow:none}
+  .day-block span{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:9px;color:#84909d;font-weight:700}.day-block strong{display:block;font-size:14px;margin-top:4px}.day-block small{display:block;color:var(--muted);font-size:10.5px;margin-top:3px}.day-divider{width:1px;height:42px;background:var(--line);margin:0 24px}
+  .full-plan{margin-top:9px;border-bottom:1px solid var(--line)}.full-plan summary{list-style:none;cursor:pointer;color:#566777;font-size:11px;font-weight:700;padding:9px 2px 12px}.full-plan summary::-webkit-details-marker{display:none}.full-plan summary:after{content:' ↓';color:#9aa6b2}.full-plan[open] summary:after{content:' ↑'}
+  .full-plan-body{background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px 16px;margin-bottom:12px}.compact-slot{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.compact-slot:last-child{border-bottom:0}.compact-slot time{font-size:11px;color:#738091;font-weight:700}.compact-slot strong{font-size:12px;display:block}.compact-slot span{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
+  .quiet-progress{width:100%;border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 2px 0;color:#667586;text-align:left;font-size:11px}.quiet-progress b{color:var(--brand);font-size:11px;white-space:nowrap}
   @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
   @media(max-width:900px){
+    .home-minimal{max-width:none}.minimal-hero{padding:24px 21px;border-radius:22px}.minimal-hero h2{font-size:34px}.ambient-line{font-size:10.5px;margin-bottom:20px}.ambient-sep{display:none}.day-plan-head{align-items:flex-start}.day-plan-head .link-btn{display:none}.day-glance{grid-template-columns:1fr;padding:15px 16px;gap:13px}.day-divider{width:100%;height:1px;margin:0}.compact-slot{grid-template-columns:44px 1fr}.compact-slot .tiny-btn{grid-column:2;width:max-content}.quiet-progress{align-items:flex-start}
     .app{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 16px}.content{padding:18px 14px 90px}.role-switch{display:none}.page-title{font-size:16px}
     .hero{padding:20px;border-radius:22px}.hero-grid{grid-template-columns:1fr}.hero h2{font-size:29px}.hero .big-num{font-size:42px}.hero-stats{grid-template-columns:repeat(3,1fr)}
     .grid,.detail-layout{grid-template-columns:1fr}.opp-grid{grid-template-columns:1fr}.opportunity{grid-template-columns:1fr}.score-box{display:none}.stat-grid{grid-template-columns:repeat(2,1fr)}
@@ -176,7 +206,7 @@
     .mobile-tabs button{border:0;background:transparent;color:#667488;font-size:10px;padding:6px 2px;display:grid;gap:3px;place-items:center}.mobile-tabs button.active{color:#273547;font-weight:700}.mobile-tabs b{font-size:17px;font-weight:500}
     .manager-banner{align-items:flex-start;flex-direction:column}.client-hero .top{flex-direction:column}.journey{overflow:auto;padding-bottom:4px}.journey-step{min-width:110px}
     .feedback{grid-template-columns:1fr 1fr}.top-actions .subtle{display:none}
-    .plan-slot{grid-template-columns:72px 1fr}.plan-actions{grid-column:2}.action-tools{grid-template-columns:1fr}.context-tool{grid-template-columns:38px 1fr}.context-tool .primary{grid-column:2;width:max-content}.portfolio-summary{grid-template-columns:repeat(2,1fr)}.share-row{grid-template-columns:1fr}.yesterday-strip{align-items:flex-start}.yesterday-strip .link-btn{display:none}.next-product{align-items:flex-start}.suggested-amount b{font-size:13px}.progress-story{grid-template-columns:1fr}.progress-story .story-amount{text-align:left}.momentum-flow{grid-template-columns:repeat(2,1fr)}.momentum-step:nth-child(2):after{display:none}
+    .plan-slot{grid-template-columns:72px 1fr}.plan-actions{grid-column:2}.action-tools{grid-template-columns:1fr}.context-tool{grid-template-columns:38px 1fr}.context-tool .primary{grid-column:2;width:max-content}.portfolio-summary{grid-template-columns:repeat(2,1fr)}.share-row{grid-template-columns:1fr}.yesterday-strip{align-items:flex-start}.yesterday-strip .link-btn{display:none}.next-product{align-items:flex-start}.suggested-amount b{font-size:13px}.progress-story{grid-template-columns:1fr}.progress-story .story-amount{text-align:left}.momentum-flow{grid-template-columns:repeat(2,1fr)}.momentum-step:nth-child(2):after{display:none}.day-context{grid-template-columns:1fr;gap:10px}.day-context .context-item{padding-right:0}.day-context .context-item+ .context-item{border-left:0;border-top:1px solid var(--line);padding:10px 0 0}
   }
 </style>
 </head>
@@ -206,76 +236,54 @@
 
     <div class="content">
       <section class="view active" id="today">
-        <div class="hero">
-          <div class="hero-grid">
-            <div>
-              <div class="eyebrow">Good morning, Anoop</div>
-              <h2>Your best opportunities are ready.</h2>
-              <p>You have <strong>11 relevant opportunities</strong> today. Start with the 5 that are most likely to turn into meaningful customer conversations.</p>
-              <div class="value-motivator"><span class="spark"></span><strong id="potentialCounter">₹18.4L</strong><span>estimated investment potential identified today</span></div>
-              <button class="primary" onclick="openDetail(0)">Start with the best opportunity →</button>
-              <div class="hero-stats">
-                <div class="hero-stat"><strong>4</strong><span>Investment opportunities</span></div>
-                <div class="hero-stat"><strong>3</strong><span>MF opportunities</span></div>
-                <div class="hero-stat"><strong>2</strong><span>Wealth Creator moves</span></div>
-              </div>
-            </div>
-            <div><div class="big-num">5</div><div class="big-label">priority conversations for today</div></div>
+        <div class="home-minimal">
+          <div class="hero minimal-hero market-constructive micro-highlight">
+            <div class="eyebrow">Good morning, Anoop</div>
+            <h2><span id="potentialCounter">₹18.4L</span> potential today</h2>
+            <p class="hero-summary">11 relevant opportunities · 3 high priority</p>
+            <button class="primary hero-cta" onclick="openDetail(0)">Start with Rajesh →</button>
+            <div class="yesterday-inline"><span>Yesterday</span><strong>₹6.8L progressed</strong><i>·</i><span>7 actions completed</span></div>
           </div>
-        </div>
-        <div class="yesterday-strip micro-highlight"><div class="copy"><div class="icon">↗</div><div><strong>Yesterday: <b>₹6.8L potential progressed</b> across 7 actions.</strong><p>3 opportunities worth ₹4.2L were not reached. The 2 still relevant are already carried into today’s plan.</p></div></div><button class="link-btn" data-go="progress">See progress →</button></div>
 
-        <div class="section-head"><div><h3>Your day, already organised</h3><p>A simple plan built from today’s most relevant opportunities. Adjust only if you need to.</p></div><span class="pill">~70 min focused activity</span></div>
-        <div class="card pad planner">
-          <div class="plan-slot"><div class="plan-time">9:30–10:30</div><div class="plan-task"><strong>3 priority conversations</strong><span>Rajesh · Priya · Manoj</span></div><div class="plan-actions"><button class="tiny-btn" onclick="openDetail(0)">Start</button><button class="tiny-btn" onclick="quickAction('Morning block moved to 11:30 AM')">Move</button></div></div>
-          <div class="plan-slot"><div class="plan-time">11:30–12:00</div><div class="plan-task"><strong>2 plan follow-ups</strong><span>Clients who viewed a proposal but haven’t responded</span></div><div class="plan-actions"><button class="tiny-btn" onclick="quickAction('Follow-up block opened')">Review</button><button class="tiny-btn" onclick="quickAction('Reminder set for 11:30 AM')">Remind me</button></div></div>
-          <div class="plan-slot"><div class="plan-time">2:30–3:00</div><div class="plan-task"><strong>Portfolio review · Arun Nair</strong><span>One relationship gap remains before Wealth Creator</span></div><div class="plan-actions"><button class="tiny-btn" onclick="openDetail(3)">Open</button></div></div>
-          <div class="plan-slot"><div class="plan-time">4:00–4:30</div><div class="plan-task"><strong>Close the loop</strong><span>Update outcomes and clear remaining follow-ups</span></div><div class="plan-actions"><button class="tiny-btn" onclick="showOutcome()">Update</button></div></div>
-        </div>
+          <div class="ambient-line micro-highlight" aria-label="Today around you">
+            <span><i class="ambient-dot market"></i><strong>Market:</strong> Constructive</span>
+            <span class="ambient-sep">·</span>
+            <span>☂ <strong>Rain after 2 PM</strong></span>
+            <span class="ambient-sep">·</span>
+            <span>1 client visit at 3:30 PM</span>
+          </div>
 
-        <div class="grid">
-          <div>
-            <div class="section-head"><div><h3>Start here</h3><p>The highest-value action we found for you.</p></div><button class="link-btn" data-go="opportunities">See all →</button></div>
-            <div class="card opportunity">
+          <div class="day-plan-minimal">
+            <div class="day-plan-head">
               <div>
-                <div class="op-head"><span class="pill hot">🔥 Best opportunity</span><span class="pill mf">Long-term investment</span></div>
-                <div class="client-name">Rajesh Kumar</div>
-                <div class="signal">₹8.4L has stayed idle for 45 days.</div>
-                <div class="reason">Active equity investor · No MF exposure · Stable investible surplus</div>
-                <div class="next-product micro-highlight"><div><div class="np-label">Next relevant opportunity</div><strong>Mutual Fund · Long-term allocation</strong></div><div class="suggested-amount"><span>Suggested starting allocation</span><b>₹3–4L</b></div></div>
-                <div class="amount-note">Indicative amount based on current signals; review suitability before recommendation.</div>
-                <div class="card-actions">
-                  <button class="primary brand" onclick="openDetail(0)">View opportunity</button>
-                  <button class="icon-btn" onclick="quickAction('Call started for Rajesh')">☎ Call</button>
-                  <button class="icon-btn" onclick="quickAction('WhatsApp conversation prepared')">◌ WhatsApp</button>
-                </div>
+                <div class="eyebrow">Your day</div>
+                <h3>Simple. Focused. Already organised.</h3>
               </div>
-              <div class="score-box"><strong>94</strong><span>relevance</span></div>
+              <button class="link-btn" data-go="opportunities">See all opportunities →</button>
             </div>
+            <div class="day-glance card">
+              <div class="day-block"><span>Morning</span><strong>3 priority conversations</strong><small>Rajesh · Priya · Manoj</small></div>
+              <div class="day-divider"></div>
+              <div class="day-block"><span>Afternoon</span><strong>2 follow-ups · 1 client visit</strong><small>Only the actions that still matter</small></div>
+            </div>
+            <details class="full-plan">
+              <summary>View my full day</summary>
+              <div class="full-plan-body">
+                <div class="compact-slot"><time>9:30</time><div><strong>3 priority conversations</strong><span>Start with the best opportunity first.</span></div><button class="tiny-btn" onclick="openDetail(0)">Start</button></div>
+                <div class="compact-slot"><time>11:30</time><div><strong>2 plan follow-ups</strong><span>Clients who viewed a proposal but haven’t responded.</span></div><button class="tiny-btn" onclick="quickAction('Follow-up block opened')">Review</button></div>
+                <div class="compact-slot"><time>3:30</time><div><strong>Client visit</strong><span>Rain likely after 2 PM — leave a little earlier.</span></div><button class="tiny-btn" onclick="quickAction('Travel reminder noted')">Noted</button></div>
+                <div class="compact-slot"><time>4:30</time><div><strong>Close the loop</strong><span>Update outcomes; the system will prepare tomorrow.</span></div><button class="tiny-btn" onclick="showOutcome()">Update</button></div>
+              </div>
+            </details>
+          </div>
 
-            <div class="section-head"><div><h3>Next up</h3><p>No hunting through dashboards. Just the next relevant actions.</p></div></div>
-            <div class="list" id="nextList"></div>
-          </div>
-          <div>
-            <div class="section-head"><div><h3>Your mission</h3><p>Progress over pressure.</p></div></div>
-            <div class="card pad mission-card">
-              <span class="pill hot">Today</span>
-              <h4>Help 2 customers progress toward Wealth Creator.</h4>
-              <p>Focus on customers where a relevant long-term relationship gap already exists.</p>
-              <div class="mission-row"><div class="ring"><span>72%</span></div><div><strong>3 of 5 priority actions done</strong><div class="subtle">2 more meaningful conversations to go</div></div></div>
-            </div>
-            <div class="signal-box"><div class="label">Something changed</div><strong>One of your top traders just built a large cash balance.</strong><p>We spotted ₹6.2L accumulating over the last 30 days. This could be worth a conversation.</p><button class="link-btn" onclick="openDetail(3)">Take a look →</button></div>
-            <div class="signal-box"><div class="label">Almost there</div><strong>4 clients are close to Wealth Creator status.</strong><p>Two of them have an obvious next relationship step based on current holdings.</p><button class="link-btn" data-go="clients">Show me →</button></div>
-            <div class="section-head"><div><h3>Worth a follow-up</h3><p>Only when the timing looks useful.</p></div></div>
-            <div class="card follow-card"><strong>Meera viewed the SIP Story twice.</strong><p>You shared it 2 days ago. No reply yet — a short, gentle follow-up may be timely.</p><div class="follow-meta"><span class="status-chip opened">Opened twice</span><span class="status-chip">2 days ago</span></div><div class="card-actions"><button class="tiny-btn" onclick="quickAction('Gentle follow-up prepared for Meera')">Prepare follow-up</button><button class="tiny-btn" onclick="quickAction('Follow-up snoozed for 2 days')">Not today</button></div></div>
-            <div class="card follow-card" style="margin-top:10px;border-left-color:#9aa6b2;background:#fafbfc"><strong>Give Suresh some space.</strong><p>Two outreach attempts this week with no response. No follow-up recommended today.</p><div class="follow-meta"><span class="status-chip wait">Cooling period</span></div></div>
-          </div>
+          <button class="quiet-progress" data-go="progress"><span>2 clients can move closer to Wealth Creator today</span><b>View progress →</b></button>
         </div>
       </section>
 
       <section class="view" id="opportunities">
         <div class="eyebrow">Opportunity feed</div><h2>Relevant conversations, not a lead dump.</h2><p class="lead">Each opportunity explains why it surfaced, what changed and the simplest next action.</p>
-        <div class="filters"><button class="filter active" data-filter="all">All 11</button><button class="filter" data-filter="mf">Mutual Funds</button><button class="filter" data-filter="equity">Equity</button><button class="filter" data-filter="insurance">Insurance</button><button class="filter" data-filter="wealth">Wealth Creator</button></div>
+        <div class="filters"><button class="filter active" data-filter="all">All 11</button><button class="filter" data-filter="mf">Mutual Funds</button><button class="filter" data-filter="equity">Equity</button><button class="filter" data-filter="mtf">MTF</button><button class="filter" data-filter="insurance">Insurance</button><button class="filter" data-filter="wealth">Wealth Creator</button></div>
         <div class="opp-grid" id="oppGrid"></div>
       </section>
 
@@ -376,6 +384,11 @@ const opportunities = [
    'English':'Lakshmi, your account is ready and funded. If you’d like, I can help you get comfortable with the platform and discuss how to approach your first investment.',
    'Malayalam':'ലക്ഷ്മി, നിങ്ങളുടെ അക്കൗണ്ട് തയ്യാറായി ഫണ്ട് ചെയ്തിട്ടുണ്ട്. നിങ്ങൾക്ക് താൽപ്പര്യമുണ്ടെങ്കിൽ പ്ലാറ്റ്ഫോം ഉപയോഗിക്കാൻ സുഖകരമാകാനും ആദ്യ നിക്ഷേപം എങ്ങനെ തുടങ്ങാം എന്നും ഞാൻ സഹായിക്കാം.',
    'Hindi':'लक्ष्मी, आपका खाता तैयार है और उसमें फंड भी है। अगर आप चाहें तो मैं प्लेटफॉर्म समझने और पहला निवेश कैसे शुरू करें, इसमें आपकी मदद कर सकता हूँ।'}},
+ {name:'Deepak Thomas',type:'mtf',tag:'MTF opportunity',signal:'Frequent delivery positions; cash availability limits position size',reason:'Active equity client · Eligible securities pattern · Consistent delivery activity',score:88,potential:'₹2.5L exposure',product:'Margin Trading Facility · Delivery funding',suggested:'₹2.5L indicative exposure',stage:'Trader → Active Investor',preferred:'Malayalam',why:['Frequent delivery positions in eligible securities','Position size often constrained by available cash','Existing trading behaviour suggests MTF may be worth explaining'],next:'Explain MTF only if it fits his trading need and risk comfort',scripts:{
+   'Malayalam':'ദീപക് സാർ, നിങ്ങൾ ഡെലിവറി പോസിഷനുകളിൽ സ്ഥിരമായി സജീവമാണ്. ചിലപ്പോൾ ലഭ്യമായ കാഷ് കാരണം പോസിഷൻ സൈസ് നിയന്ത്രിക്കേണ്ടി വരുന്നതായി കാണുന്നു. MTF എങ്ങനെ പ്രവർത്തിക്കുന്നു, അതിന്റെ ചെലവും റിസ്കും ഉൾപ്പെടെ, ഒന്ന് വിശദമായി നോക്കണമോ?',
+   'English':'Deepak, you are regularly active in delivery positions, and at times available cash seems to limit position size. If useful, we can look at how MTF works — including the funding cost and risks — and whether it suits the way you trade.',
+   'Hindi':'दीपक जी, आप डिलीवरी पोज़िशन में नियमित रूप से सक्रिय हैं और कभी-कभी उपलब्ध नकदी पोज़िशन के आकार को सीमित करती दिखती है। अगर उपयोगी लगे तो हम MTF कैसे काम करता है, उसकी लागत और जोखिम सहित, देख सकते हैं और यह आपकी ट्रेडिंग शैली के लिए उपयुक्त है या नहीं।',
+   'Tamil':'தீபக் சார், நீங்கள் டெலிவரி பொசிஷன்களில் தொடர்ந்து செயலில் இருக்கிறீர்கள். சில நேரங்களில் கிடைக்கும் பணம் பொசிஷன் அளவை கட்டுப்படுத்துவது போல தெரிகிறது. MTF எப்படி செயல்படுகிறது, அதன் செலவு மற்றும் அபாயங்கள் என்ன, அது உங்கள் வர்த்தக முறைக்கு பொருந்துமா என்பதை பார்க்கலாமா?'}},
  {name:'Suresh Babu',type:'wealth',tag:'Re-engagement',signal:'Large client, no human conversation in 112 days',reason:'High relationship value · Recent portfolio movement',score:87,potential:'Relationship',product:'Relationship review first',suggested:'No amount yet',stage:'Investor → Re-engage',preferred:'Malayalam',why:['High relationship value','No RM interaction for 112 days','Recent portfolio activity suggests renewed interest'],next:'Reconnect before making any product suggestion',scripts:{
    'Malayalam':'സുരേഷ് സാർ, നമുക്ക് സംസാരിച്ചിട്ട് കുറച്ച് കാലമായി. എന്തെങ്കിലും പുതിയ നിക്ഷേപ മുൻഗണനകളോ ആവശ്യങ്ങളോ വന്നിട്ടുണ്ടോ എന്ന് അറിയാനാണ് വിളിച്ചത് — ഇപ്പോൾ ഒന്നും പ്രത്യേകമായി നിർദേശിക്കാനല്ല.',
    'English':'Suresh, it’s been a while since we last spoke. I wanted to check in and understand if anything has changed in your investment priorities before we discuss anything specific.',
@@ -396,7 +409,7 @@ function go(id){
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
 
-function pillClass(type){return type==='mf'?'mf':type==='insurance'?'ins':type==='equity'?'eq':'hot'}
+function pillClass(type){return type==='mf'?'mf':type==='insurance'?'ins':type==='equity'?'eq':type==='mtf'?'mtf':'hot'}
 function renderOpps(){
  const grid=document.getElementById('oppGrid');
  const data=opportunities.filter(o=>activeFilter==='all'||o.type===activeFilter);
@@ -412,12 +425,13 @@ function renderWealth(){
  document.getElementById('wealthList').innerHTML=list.map((o,idx)=>`<div class="opportunity" style="padding:15px 0;border-bottom:${idx<list.length-1?'1px solid var(--line)':'0'}"><div><div class="op-head"><span class="pill ${idx===0?'hot':''}">${idx===0?'1 step away':'Relationship opportunity'}</span></div><div class="client-name" style="font-size:16px">${o.name}</div><div class="reason">${o.stage} · ${o.signal}</div></div><button class="secondary" onclick="openDetail(${opportunities.indexOf(o)})">View</button></div>`).join('');
 }
 
-function defaultTool(o){return o.type==='mf'?'SIP Story':o.type==='insurance'?'Protection Review':o.type==='equity'?'Portfolio Analyser':'Wealth Plan'}
+function defaultTool(o){return o.type==='mf'?'SIP Story':o.type==='insurance'?'Protection Review':o.type==='equity'?'Portfolio Analyser':o.type==='mtf'?'MTF Exposure Planner':'Wealth Plan'}
 function toolInfo(tool){return {
  'SIP Story':{icon:'◎',desc:'Turn this customer’s goal and current capacity into a simple personalised SIP story.',why:'Matched to a long-term / SIP opportunity'},
  'Portfolio Analyser':{icon:'◫',desc:'Show the customer a simple view of allocation, concentration and possible portfolio gaps.',why:'Matched to an equity / portfolio opportunity'},
  'Wealth Plan':{icon:'✦',desc:'Create a simple next-step relationship roadmap from the customer’s existing portfolio.',why:'Matched to a Wealth Creator progression opportunity'},
- 'Protection Review':{icon:'◇',desc:'Prepare a needs-led protection review without jumping straight to a product.',why:'Matched to a protection gap'}
+ 'Protection Review':{icon:'◇',desc:'Prepare a needs-led protection review without jumping straight to a product.',why:'Matched to a protection gap'},
+ 'MTF Exposure Planner':{icon:'↗',desc:'Explain indicative funded exposure, funding cost and risk using the client’s existing delivery-trading context.',why:'Matched to an MTF / delivery-funding opportunity'}
  }[tool]}
 function setConversationLanguage(lang){
  currentLang=lang; const o=opportunities[currentOpp];
@@ -432,6 +446,7 @@ function portfolioData(i){
   {total:'₹41.8L',eq:'₹17.4L',mf:'₹21.2L',cash:'₹3.2L',other:'Protection gap',alloc:[['Mutual Funds',51],['Equity',42],['Cash',7]]},
   {total:'₹62.5L',eq:'₹22.5L',mf:'₹28.0L',cash:'₹4.0L',other:'₹8.0L other',alloc:[['Mutual Funds',45],['Equity',36],['Other',13],['Cash',6]]},
   {total:'₹3.2L',eq:'—',mf:'—',cash:'₹3.2L',other:'—',alloc:[['Cash',100]]},
+  {total:'₹26.8L',eq:'₹19.6L',mf:'₹3.2L',cash:'₹4.0L',other:'MTF eligible set',alloc:[['Equity',73],['Cash',15],['Mutual Funds',12]]},
   {total:'₹84.0L',eq:'₹32.0L',mf:'₹39.0L',cash:'₹5.0L',other:'₹8.0L other',alloc:[['Mutual Funds',46],['Equity',38],['Other',10],['Cash',6]]}
  ]; return sets[i%sets.length];
 }
@@ -451,7 +466,8 @@ function openPitch(tool){
   'SIP Story':{title:'A simple SIP path for your next goal',body:`A goal-led monthly investing illustration using ${o.name}’s current relationship context. Review the amount, horizon and allocation before sharing.`},
   'Portfolio Analyser':{title:'Your portfolio at a glance',body:`A simple view of current allocation, concentration and relationship gaps, followed by discussion prompts rather than an automatic recommendation.`},
   'Wealth Plan':{title:'Your next steps toward a stronger long-term portfolio',body:`An easy-to-understand roadmap showing what is already in place and which long-term areas may be worth discussing next.`},
-  'Protection Review':{title:'A quick protection check',body:`A needs-led review that helps start a protection conversation without jumping straight to a product.`}
+  'Protection Review':{title:'A quick protection check',body:`A needs-led review that helps start a protection conversation without jumping straight to a product.`},
+  'MTF Exposure Planner':{title:'See how MTF could support delivery positions',body:`A simple client-ready illustration of indicative funded exposure, funding cost, margin requirement and key risks. Review eligibility and suitability before sharing.`}
  }[tool];
  const intro=o.scripts[currentLang]||o.scripts.English;
  document.getElementById('pitchContent').innerHTML=`<div class="eyebrow">Instant personalised pitch</div><h3 style="margin:6px 0 4px">${tool} · ${o.name}</h3><p>Pre-filled from the customer profile and prepared in <strong>${currentLang}</strong>. Review before sharing.</p><div class="pitch-preview"><h4>${copy.title}</h4><p>${copy.body}</p><div class="mini-stat"><span>Opportunity context</span><strong>${o.signal}</strong></div><div class="mini-stat"><span>Suggested opportunity</span><strong>${o.product} · ${o.suggested}</strong></div><div class="mini-stat"><span>Conversation language</span><strong>${currentLang}</strong></div><div class="soft-note" style="margin-top:10px"><strong>Client-ready opening</strong><br>${intro}</div></div><div class="share-row"><button onclick="sharePitch('WhatsApp','${tool}')">◌ WhatsApp</button><button onclick="sharePitch('Email','${tool}')">✉ Email</button><button onclick="sharePitch('Print / PDF','${tool}')">▤ Print / PDF</button></div><div class="soft-note" style="margin-top:10px">Production version would apply approved templates, suitability rules and required disclosures before anything is sent.</div>`;
