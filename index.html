@@ -93,6 +93,19 @@
   .score-box{min-width:88px;text-align:center;background:#f7f9fb;border-radius:14px;padding:12px 10px}
   .score-box strong{font-size:24px;display:block}.score-box span{font-size:10px;color:var(--muted)}
   .list{display:grid;gap:12px}
+  .morning-line{max-width:680px;line-height:1.45;text-transform:none;letter-spacing:0;font-size:13px;color:#536477}
+  .wealth-accordion{overflow:hidden}
+  .wealth-summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 26px;cursor:pointer;user-select:none}
+  .wealth-summary::-webkit-details-marker{display:none}
+  .wealth-summary h3{font-size:18px;margin:0}
+  .wealth-summary p{margin:4px 0 0;color:var(--muted);font-size:13px}
+  .wealth-summary-action{display:flex;align-items:center;gap:10px;flex-shrink:0}
+  .wealth-chevron{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--neutral-soft);color:#526173;font-size:18px;transition:transform .2s ease}
+  .wealth-accordion[open] .wealth-chevron{transform:rotate(180deg)}
+  .wealth-body{padding:0 26px 10px;border-top:1px solid var(--line);animation:wealthReveal .2s ease}
+  .wealth-next{margin-top:7px;font-size:12px;color:var(--muted)}
+  .wealth-next strong{color:#344253;font-weight:600}
+  @keyframes wealthReveal{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
   .mini-stat{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}.mini-stat:last-child{border-bottom:0}
   .mini-stat span{color:var(--muted);font-size:13px}.mini-stat strong{font-size:15px}
   .progress{height:8px;background:#ecf0f3;border-radius:10px;overflow:hidden}.progress>span{display:block;height:100%;background:var(--brand);border-radius:10px}
@@ -199,6 +212,7 @@
   @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
   @media(max-width:900px){
     .home-minimal{max-width:none}.minimal-hero{padding:24px 21px;border-radius:22px}.minimal-hero h2{font-size:34px}.ambient-line{font-size:10.5px;margin-bottom:20px}.ambient-sep{display:none}.day-plan-head{align-items:flex-start}.day-plan-head .link-btn{display:none}.day-glance{grid-template-columns:1fr;padding:15px 16px;gap:13px}.day-divider{width:100%;height:1px;margin:0}.compact-slot{grid-template-columns:44px 1fr}.compact-slot .tiny-btn{grid-column:2;width:max-content}.quiet-progress{align-items:flex-start}
+    .wealth-summary{padding:18px 18px;align-items:flex-start}.wealth-summary p{font-size:12px;line-height:1.45}.wealth-summary-action{gap:6px}.wealth-body{padding:0 18px 8px}.wealth-client-row{grid-template-columns:1fr!important}.wealth-client-row .secondary{width:max-content}
     .app{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 16px}.content{padding:18px 14px 90px}.role-switch{display:none}.page-title{font-size:16px}
     .hero{padding:20px;border-radius:22px}.hero-grid{grid-template-columns:1fr}.hero h2{font-size:29px}.hero .big-num{font-size:42px}.hero-stats{grid-template-columns:repeat(3,1fr)}
     .grid,.detail-layout{grid-template-columns:1fr}.opp-grid{grid-template-columns:1fr}.opportunity{grid-template-columns:1fr}.score-box{display:none}.stat-grid{grid-template-columns:repeat(2,1fr)}
@@ -238,7 +252,7 @@
       <section class="view active" id="today">
         <div class="home-minimal">
           <div class="hero minimal-hero market-constructive micro-highlight">
-            <div class="eyebrow">Good morning, Anoop</div>
+            <div class="eyebrow morning-line">Good morning, Anoop. You’ve got a strong day ahead — the best opportunities are already prioritised for you.</div>
             <h2><span id="potentialCounter">₹18.4L</span> potential today</h2>
             <p class="hero-summary">11 relevant opportunities · 3 high priority</p>
             <button class="primary hero-cta" onclick="openDetail(0)">Start with Rajesh →</button>
@@ -289,10 +303,31 @@
 
       <section class="view" id="clients">
         <div class="eyebrow">Client journey</div><h2>See who is ready to progress.</h2><p class="lead">Not every client needs another product. Focus on relationship gaps that make sense.</p>
-        <div class="card pad">
-          <div class="section-head" style="margin-top:0"><div><h3>Closest to Wealth Creator</h3><p>Based on the current MVP rules.</p></div><span class="pill">4 clients</span></div>
-          <div class="list" id="wealthList"></div>
-        </div>
+        <details class="card wealth-accordion" open>
+          <summary class="wealth-summary">
+            <div>
+              <h3>Closest to Wealth Creator</h3>
+              <p>4 clients are closest to progressing. Focus on the next meaningful relationship step.</p>
+            </div>
+            <div class="wealth-summary-action"><span class="pill">4 clients</span><span class="wealth-chevron" aria-hidden="true">⌄</span></div>
+          </summary>
+          <div class="wealth-body">
+            <div class="list" id="wealthList">
+              <div class="opportunity wealth-client-row" style="padding:16px 0;border-bottom:1px solid var(--line)">
+                <div><div class="op-head"><span class="pill hot">Closest · 1 step away</span></div><div class="client-name" style="font-size:16px">Arun Nair</div><div class="reason">Diversified → Wealth Creator · Only one relationship gap remains</div><div class="wealth-next">Next meaningful step · <strong>Managed / advisory portfolio</strong></div></div><button class="secondary" onclick="openDetail(3)">View client →</button>
+              </div>
+              <div class="opportunity wealth-client-row" style="padding:16px 0;border-bottom:1px solid var(--line)">
+                <div><div class="op-head"><span class="pill">Ready to progress</span></div><div class="client-name" style="font-size:16px">Manoj Varghese</div><div class="reason">Investor → Wealth Creator · Investment relationship is strong; protection is missing</div><div class="wealth-next">Next meaningful step · <strong>Protection review</strong></div></div><button class="secondary" onclick="openDetail(2)">View client →</button>
+              </div>
+              <div class="opportunity wealth-client-row" style="padding:16px 0;border-bottom:1px solid var(--line)">
+                <div><div class="op-head"><span class="pill">Ready to progress</span></div><div class="client-name" style="font-size:16px">Rajesh Kumar</div><div class="reason">Trader → Investor · Active equity relationship with limited long-term allocation</div><div class="wealth-next">Next meaningful step · <strong>Mutual Fund · Long-term allocation</strong></div></div><button class="secondary" onclick="openDetail(0)">View client →</button>
+              </div>
+              <div class="opportunity wealth-client-row" style="padding:16px 0">
+                <div><div class="op-head"><span class="pill">Ready to progress</span></div><div class="client-name" style="font-size:16px">Deepak Thomas</div><div class="reason">Trader → Active Investor · Frequent delivery activity with a relevant funding conversation</div><div class="wealth-next">Next meaningful step · <strong>Margin Trading Facility · Delivery funding</strong></div></div><button class="secondary" onclick="openDetail(5)">View client →</button>
+              </div>
+            </div>
+          </div>
+        </details>
       </section>
 
       <section class="view" id="detail">
@@ -421,8 +456,10 @@ function renderNext(){
  document.getElementById('nextList').innerHTML=opportunities.slice(1,4).map((o,i)=>`<div class="card opportunity" style="padding:15px 17px"><div><div class="op-head"><span class="pill ${pillClass(o.type)}">${i+2}</span><span class="pill ${pillClass(o.type)}">${o.tag}</span></div><div class="client-name" style="font-size:16px">${o.name}</div><div class="reason"><strong>${o.signal}</strong> · ${o.reason}</div><div class="next-product"><div><div class="np-label">Next opportunity</div><strong>${o.product}</strong></div><div class="suggested-amount"><span>Suggested</span><b>${o.suggested}</b></div></div><button class="link-btn" onclick="openDetail(${i+1})">View opportunity →</button></div><div class="score-box"><strong>${o.score}</strong><span>relevance</span></div></div>`).join('');
 }
 function renderWealth(){
- const list=[opportunities[3],opportunities[2],opportunities[0],opportunities[5]];
- document.getElementById('wealthList').innerHTML=list.map((o,idx)=>`<div class="opportunity" style="padding:15px 0;border-bottom:${idx<list.length-1?'1px solid var(--line)':'0'}"><div><div class="op-head"><span class="pill ${idx===0?'hot':''}">${idx===0?'1 step away':'Relationship opportunity'}</span></div><div class="client-name" style="font-size:16px">${o.name}</div><div class="reason">${o.stage} · ${o.signal}</div></div><button class="secondary" onclick="openDetail(${opportunities.indexOf(o)})">View</button></div>`).join('');
+ const target=document.getElementById('wealthList');
+ const list=[opportunities[3],opportunities[2],opportunities[0],opportunities[5]].filter(Boolean);
+ if(!target || !list.length) return;
+ target.innerHTML=list.map((o,idx)=>`<div class="opportunity wealth-client-row" style="padding:16px 0;border-bottom:${idx<list.length-1?'1px solid var(--line)':'0'}"><div><div class="op-head"><span class="pill ${idx===0?'hot':''}">${idx===0?'Closest · 1 step away':'Ready to progress'}</span></div><div class="client-name" style="font-size:16px">${o.name}</div><div class="reason">${o.stage} · ${o.signal}</div><div class="wealth-next">Next meaningful step · <strong>${o.product}</strong></div></div><button class="secondary" onclick="openDetail(${opportunities.indexOf(o)})">View client →</button></div>`).join('');
 }
 
 function defaultTool(o){return o.type==='mf'?'SIP Story':o.type==='insurance'?'Protection Review':o.type==='equity'?'Portfolio Analyser':o.type==='mtf'?'MTF Exposure Planner':'Wealth Plan'}
