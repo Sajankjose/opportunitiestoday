@@ -209,9 +209,36 @@
   .full-plan{margin-top:9px;border-bottom:1px solid var(--line)}.full-plan summary{list-style:none;cursor:pointer;color:#566777;font-size:11px;font-weight:700;padding:9px 2px 12px}.full-plan summary::-webkit-details-marker{display:none}.full-plan summary:after{content:' ↓';color:#9aa6b2}.full-plan[open] summary:after{content:' ↑'}
   .full-plan-body{background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px 16px;margin-bottom:12px}.compact-slot{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.compact-slot:last-child{border-bottom:0}.compact-slot time{font-size:11px;color:#738091;font-weight:700}.compact-slot strong{font-size:12px;display:block}.compact-slot span{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
   .quiet-progress{width:100%;border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 2px 0;color:#667586;text-align:left;font-size:11px}.quiet-progress b{color:var(--brand);font-size:11px;white-space:nowrap}
+
+  /* Compact product opportunity mix */
+  .product-mix{position:relative;z-index:2;margin:2px 0 20px}
+  .product-mix-label{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#8a96a4;font-weight:700;margin-bottom:7px}
+  .product-mix-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+  .product-chip{position:relative;overflow:hidden;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;display:flex;align-items:center;gap:7px;min-width:0;text-align:left;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .product-chip:hover{transform:translateY(-1px);box-shadow:0 7px 16px rgba(20,33,52,.055)}
+  .product-chip b{font-size:17px;line-height:1;letter-spacing:-.025em;color:#263445}
+  .product-chip span{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .product-chip.mf{background:#f4f8fd;color:#4c6f98;border-color:#dbe7f4}
+  .product-chip.equity{background:#f7f4fb;color:#6d5d89;border-color:#e5ddf0}
+  .product-chip.insurance{background:#fff6f0;color:#956449;border-color:#f3dfd2}
+  .product-chip.mtf{background:#f0f8f6;color:#47766e;border-color:#d9ebe7}
+  .product-chip.wealth{background:#fff8ec;color:#916520;border-color:#f0e0bd}
+  .product-chip.priority-product{border:1px solid transparent;background:linear-gradient(#f4f8fd,#f4f8fd) padding-box,linear-gradient(105deg,#d8e6f5,#759bc6,#b69fca,#d7a34f,#d8e6f5) border-box;background-size:100% 100%,240% 100%;animation:priorityBorderShine 4.8s linear infinite;box-shadow:0 6px 18px rgba(69,111,159,.08)}
+  .product-chip.priority-product:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 22%,rgba(255,255,255,.65) 45%,transparent 67%);transform:translateX(-135%);animation:prioritySweep 4.8s ease-in-out infinite;pointer-events:none}
+  @keyframes priorityBorderShine{0%{background-position:0 0,0% 50%}100%{background-position:0 0,240% 50%}}
+  @keyframes prioritySweep{0%,68%{transform:translateX(-135%)}88%,100%{transform:translateX(135%)}}
+
+  /* Product-aware colour accents in the opportunity feed */
+  .opp-tile.type-mf{border-top:2px solid #8eafd0;background:linear-gradient(180deg,#fbfdff,#fff 28%)}
+  .opp-tile.type-equity{border-top:2px solid #aa9bc1;background:linear-gradient(180deg,#fdfbff,#fff 28%)}
+  .opp-tile.type-insurance{border-top:2px solid #dca98d;background:linear-gradient(180deg,#fffdfb,#fff 28%)}
+  .opp-tile.type-mtf{border-top:2px solid #82b2aa;background:linear-gradient(180deg,#fafffd,#fff 28%)}
+  .opp-tile.type-wealth{border-top:2px solid #d9b56f;background:linear-gradient(180deg,#fffdf8,#fff 28%)}
+  .opp-tile.priority-opportunity{border:1px solid transparent;border-top-width:2px;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(105deg,#dce8f4,#7c9fc2,#c0acd2,#dce8f4) border-box;background-size:100% 100%,220% 100%;animation:priorityBorderShine 5.5s linear infinite}
+
   @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
   @media(max-width:900px){
-    .home-minimal{max-width:none}.minimal-hero{padding:24px 21px;border-radius:22px}.minimal-hero h2{font-size:34px}.ambient-line{font-size:10.5px;margin-bottom:20px}.ambient-sep{display:none}.day-plan-head{align-items:flex-start}.day-plan-head .link-btn{display:none}.day-glance{grid-template-columns:1fr;padding:15px 16px;gap:13px}.day-divider{width:100%;height:1px;margin:0}.compact-slot{grid-template-columns:44px 1fr}.compact-slot .tiny-btn{grid-column:2;width:max-content}.quiet-progress{align-items:flex-start}
+    .home-minimal{max-width:none}.minimal-hero{padding:24px 21px;border-radius:22px}.minimal-hero h2{font-size:34px}.product-mix{margin:0 0 18px}.product-mix-grid{gap:5px}.product-chip{padding:8px 6px;border-radius:10px;gap:4px;justify-content:center}.product-chip b{font-size:15px}.product-chip span{font-size:8.5px}.ambient-line{font-size:10.5px;margin-bottom:20px}.ambient-sep{display:none}.day-plan-head{align-items:flex-start}.day-plan-head .link-btn{display:none}.day-glance{grid-template-columns:1fr;padding:15px 16px;gap:13px}.day-divider{width:100%;height:1px;margin:0}.compact-slot{grid-template-columns:44px 1fr}.compact-slot .tiny-btn{grid-column:2;width:max-content}.quiet-progress{align-items:flex-start}
     .wealth-summary{padding:18px 18px;align-items:flex-start}.wealth-summary p{font-size:12px;line-height:1.45}.wealth-summary-action{gap:6px}.wealth-body{padding:0 18px 8px}.wealth-client-row{grid-template-columns:1fr!important}.wealth-client-row .secondary{width:max-content}
     .app{display:block}.sidebar{display:none}.topbar{height:64px;padding:0 16px}.content{padding:18px 14px 90px}.role-switch{display:none}.page-title{font-size:16px}
     .hero{padding:20px;border-radius:22px}.hero-grid{grid-template-columns:1fr}.hero h2{font-size:29px}.hero .big-num{font-size:42px}.hero-stats{grid-template-columns:repeat(3,1fr)}
@@ -255,6 +282,16 @@
             <div class="eyebrow morning-line">Good morning, Anoop. You’ve got a strong day ahead — the best opportunities are already prioritised for you.</div>
             <h2><span id="potentialCounter">₹18.4L</span> potential today</h2>
             <p class="hero-summary">11 relevant opportunities · 3 high priority</p>
+            <div class="product-mix">
+              <div class="product-mix-label">Opportunity mix</div>
+              <div class="product-mix-grid">
+                <button class="product-chip mf priority-product" onclick="showProduct('mf')" aria-label="Mutual Funds: 3 opportunities, highest priority today"><b>3</b><span>MF</span></button>
+                <button class="product-chip equity" onclick="showProduct('equity')" aria-label="Equity: 3 opportunities"><b>3</b><span>Equity</span></button>
+                <button class="product-chip insurance" onclick="showProduct('insurance')" aria-label="Insurance: 2 opportunities"><b>2</b><span>Insurance</span></button>
+                <button class="product-chip mtf" onclick="showProduct('mtf')" aria-label="MTF: 1 opportunity"><b>1</b><span>MTF</span></button>
+                <button class="product-chip wealth" onclick="showProduct('wealth')" aria-label="Wealth Creator: 2 opportunities"><b>2</b><span>Wealth</span></button>
+              </div>
+            </div>
             <button class="primary hero-cta" onclick="openDetail(0)">Start with Rajesh →</button>
             <div class="yesterday-inline"><span>Yesterday</span><strong>₹6.8L progressed</strong><i>·</i><span>7 actions completed</span></div>
           </div>
@@ -297,7 +334,7 @@
 
       <section class="view" id="opportunities">
         <div class="eyebrow">Opportunity feed</div><h2>Relevant conversations, not a lead dump.</h2><p class="lead">Each opportunity explains why it surfaced, what changed and the simplest next action.</p>
-        <div class="filters"><button class="filter active" data-filter="all">All 11</button><button class="filter" data-filter="mf">Mutual Funds</button><button class="filter" data-filter="equity">Equity</button><button class="filter" data-filter="mtf">MTF</button><button class="filter" data-filter="insurance">Insurance</button><button class="filter" data-filter="wealth">Wealth Creator</button></div>
+        <div class="filters"><button class="filter active" data-filter="all">All 11</button><button class="filter" data-filter="mf">Mutual Funds · 3</button><button class="filter" data-filter="equity">Equity · 3</button><button class="filter" data-filter="mtf">MTF · 1</button><button class="filter" data-filter="insurance">Insurance · 2</button><button class="filter" data-filter="wealth">Wealth Creator · 2</button></div>
         <div class="opp-grid" id="oppGrid"></div>
       </section>
 
@@ -428,7 +465,27 @@ const opportunities = [
    'Malayalam':'സുരേഷ് സാർ, നമുക്ക് സംസാരിച്ചിട്ട് കുറച്ച് കാലമായി. എന്തെങ്കിലും പുതിയ നിക്ഷേപ മുൻഗണനകളോ ആവശ്യങ്ങളോ വന്നിട്ടുണ്ടോ എന്ന് അറിയാനാണ് വിളിച്ചത് — ഇപ്പോൾ ഒന്നും പ്രത്യേകമായി നിർദേശിക്കാനല്ല.',
    'English':'Suresh, it’s been a while since we last spoke. I wanted to check in and understand if anything has changed in your investment priorities before we discuss anything specific.',
    'Hindi':'सुरेश जी, हमारी बात हुए कुछ समय हो गया है। किसी खास चीज़ पर बात करने से पहले मैं बस यह समझना चाहता था कि आपकी निवेश प्राथमिकताओं में कुछ बदला है या नहीं।',
-   'Tamil':'சுரேஷ் சார், நாம்பேசி கொஞ்சம் காலமாகிவிட்டது. ஏதாவது குறிப்பிட்ட விஷயத்தைப் பேசுவதற்கு முன், உங்கள் முதலீட்டு முன்னுரிமைகளில் மாற்றம் உள்ளதா என்று தெரிந்துகொள்ளவே தொடர்பு கொண்டேன்.'}}
+   'Tamil':'சுரேஷ் சார், நாம்பேசி கொஞ்சம் காலமாகிவிட்டது. ஏதாவது குறிப்பிட்ட விஷயத்தைப் பேசுவதற்கு முன், உங்கள் முதலீட்டு முன்னுரிமைகளில் மாற்றம் உள்ளதா என்று தெரிந்துகொள்ளவே தொடர்பு கொண்டேன்.'}},
+ {name:'Anjali Joseph',type:'mf',tag:'Goal investment',signal:'Recurring surplus visible; no active goal-based SIP',reason:'Existing MF client · Recent surplus pattern · No new SIP in 24 months',score:84,potential:'₹8K SIP',product:'Goal-based SIP',suggested:'₹8,000/month',stage:'Investor → Diversified',preferred:'English',why:['Recurring monthly surplus is visible','Existing mutual fund relationship is active','No new goal-based SIP added in the last 24 months'],next:'Check whether a new goal needs a dedicated SIP',scripts:{
+   'English':'Anjali, your investments have been steady, and it looks like there may be room to connect a fresh monthly amount to a specific goal. Would you like to review that together?',
+   'Malayalam':'അഞ്ജലി, നിങ്ങളുടെ നിക്ഷേപങ്ങൾ സ്ഥിരമായി തുടരുന്നുണ്ട്. ഒരു പുതിയ ലക്ഷ്യത്തിനായി പ്രത്യേകം ഒരു മാസ നിക്ഷേപം ക്രമീകരിക്കാൻ സാധ്യതയുണ്ടെന്ന് തോന്നുന്നു. ഒന്ന് നോക്കാമോ?',
+   'Hindi':'अंजलि, आपके निवेश लगातार चल रहे हैं और किसी नए लक्ष्य के लिए अलग मासिक निवेश की गुंजाइश दिखती है। क्या हम इसे साथ में देख लें?',
+   'Tamil':'அஞ்சலி, உங்கள் முதலீடுகள் தொடர்ந்து நடைபெற்று வருகின்றன. ஒரு புதிய இலக்குக்காக தனி மாதாந்திர முதலீட்டை அமைக்க வாய்ப்பு இருப்பது போல தெரிகிறது. ஒன்றாக பார்க்கலாமா?'}},
+ {name:'Naveen Pillai',type:'equity',tag:'Equity reactivation',signal:'No trade in 90 days; portfolio and research activity continue',reason:'Existing equity client · Research engagement · Dormant transaction activity',score:81,potential:'₹1.8L',product:'Equity reactivation',suggested:'₹75K–₹1L allocation',stage:'Investor → Re-engage',preferred:'Malayalam',why:['No completed equity trade in 90 days','Portfolio is still being monitored','Research content continues to be opened'],next:'Reconnect and understand what is holding back action',scripts:{
+   'Malayalam':'നവീൻ, നിങ്ങൾ പോർട്ട്ഫോളിയോയും റിസർച്ചും നോക്കുന്നത് തുടരുന്നുണ്ട്, പക്ഷേ കുറച്ച് കാലമായി ട്രേഡ് ചെയ്തിട്ടില്ല. എന്തെങ്കിലും മാറ്റം വന്നോ, അല്ലെങ്കിൽ സഹായം വേണമോ എന്ന് ഒന്ന് അറിയാനാണ് വിളിച്ചത്.',
+   'English':'Naveen, you are still following your portfolio and research, but it has been a while since your last trade. I wanted to check whether anything has changed or whether you need any help.',
+   'Hindi':'नवीन, आप अभी भी पोर्टफोलियो और रिसर्च देख रहे हैं, लेकिन कुछ समय से ट्रेड नहीं हुआ है। मैं बस जानना चाहता था कि कुछ बदला है या आपको किसी मदद की जरूरत है।',
+   'Tamil':'நவீன், நீங்கள் இன்னும் போர்ட்ஃபோலியோவும் ரிசர்ச்சையும் பார்க்கிறீர்கள், ஆனால் சில காலமாக டிரேடு செய்யவில்லை. ஏதாவது மாறியிருக்கிறதா அல்லது உதவி வேண்டுமா என்று தெரிந்துகொள்ளவே தொடர்பு கொண்டேன்.'}},
+ {name:'Rohit Menon',type:'equity',tag:'Research-to-action',signal:'Repeated watchlist and research activity; no recent investment action',reason:'High app engagement · Watchlist additions · Available balance visible',score:80,potential:'₹2.1L',product:'Equity investment conversation',suggested:'₹1L indicative allocation',stage:'Researching → Active Investor',preferred:'English',why:['Multiple watchlist additions this month','Research pages opened repeatedly','Available balance exists but no recent investment action'],next:'Offer help moving from research to a considered investment decision',scripts:{
+   'English':'Rohit, I noticed you have been actively tracking a few ideas and research updates. If useful, I can help you review them and decide whether any deserve a place in your portfolio.',
+   'Malayalam':'റോഹിത്, നിങ്ങൾ കുറച്ച് ആശയങ്ങളും റിസർച്ച് അപ്ഡേറ്റുകളും സജീവമായി നോക്കുന്നതായി കാണുന്നു. ആവശ്യമുണ്ടെങ്കിൽ അവ ഒന്ന് ചേർന്ന് പരിശോധിച്ച് പോർട്ട്ഫോളിയോയിൽ എന്തെങ്കിലും പരിഗണിക്കണോ എന്ന് നോക്കാം.',
+   'Hindi':'रोहित, आप कुछ आइडिया और रिसर्च अपडेट लगातार देख रहे हैं। अगर उपयोगी लगे तो हम उन्हें साथ में देखकर तय कर सकते हैं कि पोर्टफोलियो में किसी पर विचार करना चाहिए या नहीं।',
+   'Tamil':'ரோஹித், நீங்கள் சில ஐடியாக்களையும் ரிசர்ச் அப்டேட்களையும் தொடர்ந்து பார்க்கிறீர்கள். உங்களுக்கு உதவியாக இருந்தால் அவற்றை சேர்ந்து பார்த்து போர்ட்ஃபோலியோவில் ஏதேனும் பொருத்தமாக உள்ளதா என்று முடிவு செய்யலாம்.'}},
+ {name:'Fathima Ali',type:'insurance',tag:'Health cover review',signal:'Family profile changed; health cover has not been reviewed recently',reason:'Long-term client · Existing investments · Protection review overdue',score:83,potential:'Protection',product:'Health protection review',suggested:'₹10–15L cover review',stage:'Investor → Protected',preferred:'English',why:['Family profile has changed','Existing health cover has not been reviewed recently','Long-term investment relationship is already active'],next:'Review whether the current health cover still matches the family need',scripts:{
+   'English':'Fathima, we have reviewed your investments over time, but your health protection has not been revisited recently. Would it be useful to quickly check whether the current cover still fits your family needs?',
+   'Malayalam':'ഫാത്തിമ, നിക്ഷേപങ്ങൾ നാം സമയത്തിനിടെ പരിശോധിച്ചിട്ടുണ്ട്. പക്ഷേ ഹെൽത്ത് കവർ കുറച്ച് കാലമായി വീണ്ടും നോക്കിയിട്ടില്ല. ഇപ്പോഴത്തെ കുടുംബ ആവശ്യങ്ങൾക്ക് കവർ മതിയാണോ എന്ന് ഒരു ചെറിയ റിവ്യൂ ചെയ്യാമോ?',
+   'Hindi':'फातिमा, समय-समय पर हमने आपके निवेश देखे हैं, लेकिन हेल्थ कवर की हाल में समीक्षा नहीं हुई है। क्या हम जल्दी से देख लें कि मौजूदा कवर परिवार की जरूरतों के लिए पर्याप्त है या नहीं?',
+   'Tamil':'பாத்திமா, உங்கள் முதலீடுகளை நாம் காலகாலமாக பார்த்திருக்கிறோம். ஆனால் ஹெல்த் கவரை சமீபத்தில் மீண்டும் மதிப்பாய்வு செய்யவில்லை. தற்போதைய குடும்ப தேவைக்கு கவர் போதுமா என்று ஒரு சிறிய ரிவ்யூ செய்யலாமா?'}}
 ]
 let activeFilter='all', currentOpp=0, currentLang='English';
 
@@ -444,11 +501,18 @@ function go(id){
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
 
+function showProduct(type){
+ activeFilter=type;
+ document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===type));
+ renderOpps();
+ go('opportunities');
+}
+
 function pillClass(type){return type==='mf'?'mf':type==='insurance'?'ins':type==='equity'?'eq':type==='mtf'?'mtf':'hot'}
 function renderOpps(){
  const grid=document.getElementById('oppGrid');
  const data=opportunities.filter(o=>activeFilter==='all'||o.type===activeFilter);
- grid.innerHTML=data.map((o)=>{const i=opportunities.indexOf(o);return `<div class="card opp-tile" onclick="openDetail(${i})"><div class="meta"><span class="pill ${pillClass(o.type)}">${o.tag}</span><span class="subtle">${o.score}% relevant</span></div><h4>${o.name}</h4><p><strong>${o.signal}</strong><br>${o.reason}</p><div class="next-product"><div><div class="np-label">Next opportunity</div><strong>${o.product}</strong></div><div class="suggested-amount"><span>Suggested</span><b>${o.suggested}</b></div></div><div class="bottom"><span>${o.stage}</span><b>View →</b></div></div>`}).join('');
+ grid.innerHTML=data.map((o)=>{const i=opportunities.indexOf(o);const priority=i===0?' priority-opportunity':'';return `<div class="card opp-tile type-${o.type}${priority}" onclick="openDetail(${i})"><div class="meta"><span class="pill ${pillClass(o.type)}">${o.tag}</span><span class="subtle">${o.score}% relevant</span></div><h4>${o.name}</h4><p><strong>${o.signal}</strong><br>${o.reason}</p><div class="next-product"><div><div class="np-label">Next opportunity</div><strong>${o.product}</strong></div><div class="suggested-amount"><span>Suggested</span><b>${o.suggested}</b></div></div><div class="bottom"><span>${o.stage}</span><b>View →</b></div></div>`}).join('');
 }
 document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderOpps()}));
 
